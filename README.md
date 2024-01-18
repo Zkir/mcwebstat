@@ -1,2 +1,3 @@
-# mcwebstat
- A very simple script to create webpage with minecraft statistics
+Очень простой скрипт по созданию веб страницы со статистикой игроков майнкрафт сервера.
+
+Статистика разумеется собирается просто с файлов.
