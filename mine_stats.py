@@ -62,6 +62,11 @@ with open(WHITELIST_FILE,encoding='utf-8') as f:
 with open(BANNEDLIST_FILE,encoding='utf-8') as f:
         banlist = json.load(f)
 
+#we need just UUIDs of whitelisted players.
+
+whitelist_uuids=[] 
+for record in whitelist :
+    whitelist_uuids.append(record['uuid'])  
 
 #read data from user files
 admins= []
@@ -73,6 +78,7 @@ for playerdata_filename in playerdata_file_list:
     #print('\n')
     #for k in nbtfile :
     #    print(k, nbtfile[k])
+    #exit(1)    
       
     admin['uuid'] = key
     admin['last_played']  = int(str(nbtfile['bukkit']['lastPlayed']))//1000
@@ -109,6 +115,8 @@ for playerdata_filename in playerdata_file_list:
             admin['used'] = sum(stats["stats"]["minecraft:used"].values())
         else:
             admin['used'] = 0
+            
+    admin['whitelisted'] = (admin["uuid"] in whitelist_uuids)         
 
 
     if True: #admin['group'] != 'default': 
@@ -133,10 +141,13 @@ admin_list_html='<html><head>' \
 admin_list_html += '<h1>Игроки сервера "Добрый король и веселые сыроежки"</h1> \n'
 
 admin_list_html += '<table class="sortable">'
-admin_list_html += '<tr><th>Имя</th><th>Первое появление</th><th>Группа</th><th>Префикс</td><th>Наигранное время</th><th>Добыто</th><th>Использовано</th><th>Последнее появление</th></tr> \n'
+admin_list_html += '<tr><th>Имя</th><th>Первое появление</th><th>Группа</th><th>Префикс</td><th>Наигранное время</th><th>Добыто</th><th>Использовано</th><th>Последнее появление</th><th>Статус</th></tr> \n'
 for user in admins:
+    status=''
+    if not user['whitelisted']:
+        status +='<s>W</s>'
     #<td>'+str(user['uuid'])+'</td>
-    admin_list_html += '<tr><td>'+str(user['name'])+'</td><td style="text-align:center">'+format_unix_time(user['first_played'])+'</td><td>'+str(user['group'])+'</td><td>'+str(user['prefix'])+'</td><td>'+str(format_time(user['play_time']))+'</td><td style="text-align: right;">'+str(user['mined'])+'</td><td style="text-align: right;">'+str(user['used'])+'</td> <td style="text-align:center">'+format_unix_time(user['last_played'])+'</td> </tr> \n'
+    admin_list_html += '<tr><td>'+str(user['name'])+'</td><td style="text-align:center">'+format_unix_time(user['first_played'])+'</td><td>'+str(user['group'])+'</td><td>'+str(user['prefix'])+'</td><td>'+str(format_time(user['play_time']))+'</td><td style="text-align: right;">'+str(user['mined'])+'</td><td style="text-align: right;">'+str(user['used'])+'</td> <td style="text-align:center">'+format_unix_time(user['last_played'])+'</td><td>'+status+'</td> </tr> \n'
 
 admin_list_html += '</table>'
 admin_list_html += '<hr />'
@@ -145,13 +156,7 @@ admin_list_html += '</body></html>'
 
 with open('adminlist.html', 'w',encoding='utf-8') as f1:
     f1.write(admin_list_html)
-
-
-#we need just UUIDs of whitelisted players.
-
-whitelist_uuids=[] 
-for record in whitelist :
-    whitelist_uuids.append(record['uuid'])    
+ 
 
 banlist_html =''
 
