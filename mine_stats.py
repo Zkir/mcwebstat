@@ -15,6 +15,9 @@ PERMISSIONS_FILE = MINECRAFT_DIR + "/plugins/PermissionsEx/permissions.yml"
 STATS_DIR = MINECRAFT_DIR + "/world/stats"
 PLAYER_DATA_DIR = MINECRAFT_DIR +"/world/playerdata"
 
+WHITELIST_FILE = MINECRAFT_DIR +"/whitelist.json"
+BANNEDLIST_FILE = MINECRAFT_DIR +"/banned-players.json"
+
 
 ranks={'admins3':4,'admins2':3,'admins':2,'police':1, 'default':0}
 
@@ -35,7 +38,7 @@ def format_unix_time(ts):
     return datetime.fromtimestamp(ts, UTC).strftime('%Y-%m-%d') #%H:%M:%S
  
 #just a list of user files
-playerdata_file_ist=glob.glob(PLAYER_DATA_DIR+"/*.dat")
+playerdata_file_list=glob.glob(PLAYER_DATA_DIR+"/*.dat")
 
 #per permissions file 
 with open(PERMISSIONS_FILE, "r") as stream:
@@ -48,8 +51,21 @@ with open(PERMISSIONS_FILE, "r") as stream:
 pex_groups=pex_permissions['groups']
 pex_users=pex_permissions['users']
 
+
+# white list and banned list
+
+
+ 
+with open(WHITELIST_FILE,encoding='utf-8') as f:
+        whitelist = json.load(f)
+
+with open(BANNEDLIST_FILE,encoding='utf-8') as f:
+        banlist = json.load(f)
+
+
+#read data from user files
 admins= []
-for playerdata_filename in playerdata_file_ist:
+for playerdata_filename in playerdata_file_list:
     admin = {} 
     nbtfile = nbt.NBTFile(playerdata_filename)
     key=Path(playerdata_filename).stem
@@ -104,6 +120,7 @@ admins.sort(key=sort_users_by_rank,  reverse = True)
 
 
 admin_list_html='<html><head>' \
+                + '<meta charset="UTF-8">' \
                 +'<title>Игроки</title>' \
                 + '<script src="/js/sorttable.js" type="Text/javascript"> </script>' \
                 + '<style>' \
@@ -121,9 +138,50 @@ for user in admins:
     #<td>'+str(user['uuid'])+'</td>
     admin_list_html += '<tr><td>'+str(user['name'])+'</td><td style="text-align:center">'+format_unix_time(user['first_played'])+'</td><td>'+str(user['group'])+'</td><td>'+str(user['prefix'])+'</td><td>'+str(format_time(user['play_time']))+'</td><td style="text-align: right;">'+str(user['mined'])+'</td><td style="text-align: right;">'+str(user['used'])+'</td> <td style="text-align:center">'+format_unix_time(user['last_played'])+'</td> </tr> \n'
 
-admin_list_html += '</table></body></html>'
+admin_list_html += '</table>'
+admin_list_html += '<hr />'
+admin_list_html += '<small><center> страница сформирована '+datetime.now().strftime("%d/%m/%Y %H:%M:%S")+'</center></small>'
+admin_list_html += '</body></html>'
 
-with open('adminlist.html', 'w') as f1:
+with open('adminlist.html', 'w',encoding='utf-8') as f1:
     f1.write(admin_list_html)
 
 
+#we need just UUIDs of whitelisted players.
+
+whitelist_uuids=[] 
+for record in whitelist :
+    whitelist_uuids.append(record['uuid'])    
+
+banlist_html =''
+
+banlist_html='<html><head>' \
+                + '<meta charset="UTF-8">' \
+                +'<title>Активные баны</title>' \
+                + '<script src="/js/sorttable.js" type="Text/javascript"> </script>' \
+                + '<style>' \
+                + 'table {border: 1px solid grey;}' \
+                + 'th {border: 1px solid grey; }' \
+                + 'td {border: 1px solid grey; padding:4px} ' \
+                +'</style>' \
+                +'</head><body>'
+
+banlist_html += '<h1>Активные баны</h1> \n'
+
+banlist_html += '<table class="sortable">'
+
+
+banlist_html +='<tr><th>Игрок</th><th>Когда забанен</th><th>Кем</th><th>Причина бана</th><th>В белом списке</th></tr>'
+for ban in banlist:
+    whitelisted = (ban["uuid"] in whitelist_uuids) 
+    if whitelisted:
+        banlist_html +='<tr><td>'+ban["name"]+'</td><td>'+ban["created"]+'</td><td>'+ban["source"]+'</td><td>'+ban["reason"]+'</td><td>'+str(whitelisted)+'</td></tr>'
+
+banlist_html += '</table>'
+banlist_html += '<hr />'
+banlist_html += '<small><center> страница сформирована '+datetime.now().strftime("%d/%m/%Y %H:%M:%S")+'</center></small>'
+banlist_html += '</body></html>'
+
+
+with open('banlist.html', 'w', encoding="UTF-8") as f2:
+    f2.write(banlist_html)
