@@ -6,6 +6,7 @@ from datetime import UTC
 from os import listdir
 from pathlib import Path
 import glob
+from zwebpage import ZWebPage
 
 
 MINECRAFT_DIR = "d:/.Minecraft.1.20-paper_world_n2"
@@ -127,16 +128,9 @@ for playerdata_filename in playerdata_file_list:
 admins.sort(key=sort_users_by_rank,  reverse = True)
 
 
-admin_list_html='<html><head>' \
-                + '<meta charset="UTF-8">' \
-                +'<title>Игроки</title>' \
-                + '<script src="/js/sorttable.js" type="Text/javascript"> </script>' \
-                + '<style>' \
-                + 'table {border: 1px solid grey;}' \
-                + 'th {border: 1px solid grey; }' \
-                + 'td {border: 1px solid grey; padding:4px} ' \
-                +'</style>' \
-                +'</head><body>'
+page2 = ZWebPage("adminlist.html", "Игроки")
+
+admin_list_html=''
 
 admin_list_html += '<h1>Игроки сервера "Добрый король и веселые сыроежки"</h1> \n'
 
@@ -150,31 +144,16 @@ for user in admins:
     admin_list_html += '<tr><td>'+str(user['name'])+'</td><td style="text-align:center">'+format_unix_time(user['first_played'])+'</td><td>'+str(user['group'])+'</td><td>'+str(user['prefix'])+'</td><td>'+str(format_time(user['play_time']))+'</td><td style="text-align: right;">'+str(user['mined'])+'</td><td style="text-align: right;">'+str(user['used'])+'</td> <td style="text-align:center">'+format_unix_time(user['last_played'])+'</td><td>'+status+'</td> </tr> \n'
 
 admin_list_html += '</table>'
-admin_list_html += '<hr />'
-admin_list_html += '<small><center> страница сформирована '+datetime.now().strftime("%d/%m/%Y %H:%M:%S")+'</center></small>'
-admin_list_html += '</body></html>'
 
-with open('adminlist.html', 'w',encoding='utf-8') as f1:
-    f1.write(admin_list_html)
+
+page2.print(admin_list_html)
+page2.write()
  
 
+page1 = ZWebPage("banlist.html", "Активные баны")
 banlist_html =''
-
-banlist_html='<html><head>' \
-                + '<meta charset="UTF-8">' \
-                +'<title>Активные баны</title>' \
-                + '<script src="/js/sorttable.js" type="Text/javascript"> </script>' \
-                + '<style>' \
-                + 'table {border: 1px solid grey;}' \
-                + 'th {border: 1px solid grey; }' \
-                + 'td {border: 1px solid grey; padding:4px} ' \
-                +'</style>' \
-                +'</head><body>'
-
 banlist_html += '<h1>Активные баны</h1> \n'
-
 banlist_html += '<table class="sortable">'
-
 
 banlist_html +='<tr><th>Игрок</th><th>Когда забанен</th><th>Кем</th><th>Причина бана</th><th>В белом списке</th></tr>'
 for ban in banlist:
@@ -183,10 +162,9 @@ for ban in banlist:
         banlist_html +='<tr><td>'+ban["name"]+'</td><td>'+ban["created"]+'</td><td>'+ban["source"]+'</td><td>'+ban["reason"]+'</td><td>'+str(whitelisted)+'</td></tr>'
 
 banlist_html += '</table>'
-banlist_html += '<hr />'
-banlist_html += '<small><center> страница сформирована '+datetime.now().strftime("%d/%m/%Y %H:%M:%S")+'</center></small>'
-banlist_html += '</body></html>'
+
+page1.print(banlist_html)
+page1.write()
 
 
-with open('banlist.html', 'w', encoding="UTF-8") as f2:
-    f2.write(banlist_html)
+    
