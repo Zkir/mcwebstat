@@ -76,7 +76,8 @@ with open(DS_LINKS_FILE,encoding='utf-8') as f:
         ds_links_data = f.readlines()
 ds_links ={}
 for line in ds_links_data:
-    key, value = line.strip().split(' ')
+    key = line.strip().split(' ')[0]
+    value = line.strip().split(' ')[1]
     ds_links[value]=key # for some reason it is "ds_id minecraft_uuid"
     
 
