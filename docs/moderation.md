@@ -7,7 +7,7 @@
 ## Можно ли посмотреть историю в окрестности?
 Да, при помощи команды
 ~~~
-lb player slepoySnaiper since 3 days world "world"
+/lb player slepoySnaiper since 3 days world "world"
 ~~~
 
 ## Можно ли посмотреть, что случилось с животными?
@@ -19,7 +19,7 @@ lb player slepoySnaiper since 3 days world "world"
 
 ## Как делать откат?
 ~~~
-lb rollback player VasilyPupkin since 3 days world "world"
+/lb rollback player VasilyPupkin since 3 days world "world"
 ~~~
 
 ## Как поменять владельца животного?
@@ -27,4 +27,4 @@ lb rollback player VasilyPupkin since 3 days world "world"
 ~~~
 /execute as @e[type=wolf,distance=..10] run data modify entity @s Owner set from entity @p UUID
 ~~~
-
+@p -- можно заменить на имя нового хозяина
