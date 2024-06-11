@@ -6,25 +6,22 @@
 
 ## Можно ли посмотреть историю в окрестности?
 Да, при помощи команды
-~~~
-/lb player slepoySnaiper since 3 days world "world"
-~~~
+
+>/lb player slepoySnaiper since 3 days world "world"
 
 ## Можно ли посмотреть, что случилось с животными?
 Предыдущая команда показывает только блоки, можно ли посмотреть что случилось с животными?
 Да, при помощи команды
-~~~
-/lb entity area 15 since 2 days
-~~~
+
+>/lb entity area 15 since 2 days
 
 ## Как делать откат?
-~~~
-/lb rollback player VasilyPupkin since 3 days world "world"
-~~~
+
+>/lb rollback player VasilyPupkin since 3 days world "world"
 
 ## Как поменять владельца животного?
 Игрок AAA не играет с нами уже год, как подвинуть его собаку?
-~~~
-/execute as @e[type=wolf,distance=..10] run data modify entity @s Owner set from entity @p UUID
-~~~
+
+>/execute as @e[type=wolf,distance=..10] run data modify entity @s Owner set from entity @p UUID
+
 @p -- можно заменить на имя нового хозяина
