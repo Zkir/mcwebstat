@@ -6,6 +6,7 @@ from datetime import UTC
 from os import listdir
 from pathlib import Path
 import glob
+import sqlite3
 from zwebpage import ZWebPage
 
 
@@ -20,6 +21,7 @@ WHITELIST_FILE = MINECRAFT_DIR +"/whitelist.json"
 BANNEDLIST_FILE = MINECRAFT_DIR +"/banned-players.json"
 PERMISSIONS_FILE = MINECRAFT_DIR + "/plugins/PermissionsEx/permissions.yml" 
 DS_LINKS_FILE = MINECRAFT_DIR + "/plugins/DiscordSRV/accounts.aof" 
+NLOGIN_DB_FILE = MINECRAFT_DIR+ '/plugins/nLogin/nlogin.db'
 
 ranks={'admins3':4,'admins2':3,'admins':2,'police':1, 'default':0}
 
@@ -85,11 +87,23 @@ for line in ds_links_data:
 whitelist_uuids=[] 
 for record in whitelist :
     whitelist_uuids.append(record['uuid'])  
+    
+#Obtain the list of registred users from nlogin db    
+connection = sqlite3.connect(NLOGIN_DB_FILE)  
+cursor = connection.cursor()
+cursor.execute('SELECT last_name FROM nlogin where password is not NULL')  
+registered_users1 = cursor.fetchall()
+connection.close()
+
+registered_users =[]
+for ruser in registered_users1:
+    registered_users.append(ruser[0])    
 
 #read data from user files
 admins= []
 for playerdata_filename in playerdata_file_list:
     admin = {} 
+    #print(playerdata_filename)
     nbtfile = nbt.NBTFile(playerdata_filename)
     key=Path(playerdata_filename).stem
         
@@ -161,16 +175,23 @@ for user in admins:
     if not user['whitelisted']:
         status +='<s>W</s>'
         
-    discord = '&#10004' if user['discord'] !='' else ''
         
-    admin_list_html +=  '<tr>'  
-    #admin_list_html += '<td>'+str(user['uuid'])+'</td>'
-    admin_list_html += '<td>'+str(user['name'])+'</td><td style="text-align:center">'+format_unix_time(user['first_played'])+'</td>'\
-                       +'<td>'+str(user['group'])+'</td><td>'+str(user['prefix'])+'</td><td>'+str(format_time(user['play_time']))+'</td>'\
-                       +'<td style="text-align: right;">'+str(user['mined'])+'</td><td style="text-align: right;">'+str(user['used'])+'</td>'\
-                       +' <td style="text-align:center">'+format_unix_time(user['last_played'])+'</td><td>'+status+'</td>'\
-                       + '<td style="text-align:center">'+discord+'</td>'
-    admin_list_html += '</tr> \n'
+    #if user['name'] in registered_users:
+    #    status +='R'
+        
+    if user['name'] not in registered_users and user['whitelisted']:    
+        print(user['name'])
+        
+    discord = '&#10004' if user['discord'] !='' else ''
+    if True: #user['whitelisted']:    
+        admin_list_html +=  '<tr>'  
+        #admin_list_html += '<td>'+str(user['uuid'])+'</td>'
+        admin_list_html += '<td>'+str(user['name'])+'</td><td style="text-align:center">'+format_unix_time(user['first_played'])+'</td>'\
+                           +'<td>'+str(user['group'])+'</td><td>'+str(user['prefix'])+'</td><td>'+str(format_time(user['play_time']))+'</td>'\
+                           +'<td style="text-align: right;">'+str(user['mined'])+'</td><td style="text-align: right;">'+str(user['used'])+'</td>'\
+                           +' <td style="text-align:center">'+format_unix_time(user['last_played'])+'</td><td>'+status+'</td>'\
+                           + '<td style="text-align:center">'+discord+'</td>'
+        admin_list_html += '</tr> \n'
 
 admin_list_html += '</table>'
 
@@ -184,16 +205,18 @@ banlist_html =''
 banlist_html += '<h1>Активные баны</h1> \n'
 banlist_html += '<table class="sortable">\n'
 
-banlist_html +='<tr><th>Игрок</th><th>Когда забанен</th><th>Кем</th><th>Причина бана</th><th>В белом списке</th></tr>\n'
+banlist_html +='<tr><th>Игрок</th><th>Когда забанен</th><th>Кем</th><th>Причина бана</th><th>Срок</th><th>В белом списке</th></tr>\n'
 for ban in banlist:
     whitelisted = (ban["uuid"] in whitelist_uuids) 
+    ban_end = ban["expires"]
+    if ban_end == "forever":
+        ban_end = 'Навсегда'
     if whitelisted:
-        banlist_html +='<tr><td>'+ban["name"]+'</td><td>'+ban["created"]+'</td><td>'+remove_color_tags(ban["source"].replace('§','&'))+'</td><td>'+ban["reason"]+'</td><td>'+str(whitelisted)+'</td></tr> \n'
+        banlist_html +='<tr><td>'+ban["name"]+'</td><td>'+ban["created"]+'</td><td>'+remove_color_tags(ban["source"].replace('§','&'))+'</td><td>'+ban["reason"]+'</td>'\
+                      +'<td>'+ban_end+'</td><td>'+str(whitelisted)+'</td></tr> \n'
 
 banlist_html += '</table>\n'
 
 page1.print(banlist_html)
 page1.write()
 
-
-    
