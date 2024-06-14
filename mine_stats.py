@@ -169,7 +169,7 @@ admin_list_html=''
 admin_list_html += '<h1>Игроки сервера "Добрый король и веселые сыроежки"</h1> \n'
 
 admin_list_html += '<table class="sortable">'
-admin_list_html += '<tr><th>Имя</th><th>Первое появление</th><th>Группа</th><th>Префикс</td><th>Наигранное время</th><th>Добыто</th><th>Использовано</th><th>Последнее появление</th><th>Статус</th><th>Дискорд</th></tr> \n'
+admin_list_html += '<tr><th>Имя</th><th>Первое появление</th><th>Префикс</td><th>Медали</th><th>Наигранное время</th><th>Добыто</th><th>Использовано</th><th>Последнее появление</th><th>Статус</th><th>Дискорд</th></tr> \n'
 for user in admins:
     status=''
     if not user['whitelisted']:
@@ -179,15 +179,51 @@ for user in admins:
     #if user['name'] in registered_users:
     #    status +='R'
         
-    if user['name'] not in registered_users and user['whitelisted']:    
-        print(user['name'])
+    #if user['name'] not in registered_users and user['whitelisted']:    
+    #    print(user['name'])
+    
+    medals=''
+    v_medal=''
+    m_medal=''
+    b_medal=''
+    
+    # veteran medal, for played time
+    if str(format_time(user['play_time'])) >'05':
+        v_medal= 'ⓥ'
+    if str(format_time(user['play_time'])) >'10':
+        v_medal= 'Ⓥ'    
+    if str(format_time(user['play_time'])) >'20':
+        v_medal= 'Ⓥ✻'      
         
+    # miner medal, for mined blocks
+    if int(user['mined']) >=100000:
+        m_medal= 'ⓜ'
+    if int(user['mined']) >=150000:
+        m_medal= 'Ⓜ'    
+    if int(user['mined']) >=200000:
+        m_medal= 'Ⓜ✻'          
+    
+    # Builder medal, for built blocks
+    if int(user['used']) >=150000:
+        b_medal= 'ⓑ'
+        
+    if int(user['used']) >=300000:
+        b_medal= 'Ⓑ'    
+        
+    if int(user['used']) >=400000:
+        b_medal= 'Ⓑ✻'  
+
+    if status !='<s>W</s>':
+        medals += b_medal  
+        medals += m_medal  
+        medals += v_medal  
+    
     discord = '&#10004' if user['discord'] !='' else ''
     if True: #user['whitelisted']:    
         admin_list_html +=  '<tr>'  
         #admin_list_html += '<td>'+str(user['uuid'])+'</td>'
         admin_list_html += '<td>'+str(user['name'])+'</td><td style="text-align:center">'+format_unix_time(user['first_played'])+'</td>'\
-                           +'<td>'+str(user['group'])+'</td><td>'+str(user['prefix'])+'</td><td>'+str(format_time(user['play_time']))+'</td>'\
+                           +'<td>'+str(user['prefix'])+'</td><td>'+medals+'</td><td>'+str(format_time(user['play_time']))+'</td>'\
                            +'<td style="text-align: right;">'+str(user['mined'])+'</td><td style="text-align: right;">'+str(user['used'])+'</td>'\
                            +' <td style="text-align:center">'+format_unix_time(user['last_played'])+'</td><td>'+status+'</td>'\
                            + '<td style="text-align:center">'+discord+'</td>'
