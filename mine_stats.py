@@ -42,11 +42,13 @@ def format_unix_time(ts):
     return datetime.fromtimestamp(ts, UTC).strftime('%Y-%m-%d') #%H:%M:%S
     
 def remove_color_tags(s):
-    s = s.replace('&r','') 
+    
+    s = s.replace('&4','')
+    s = s.replace('&6','')
     s = s.replace('&9','')
     s = s.replace('&c','')
-    s = s.replace('&4','')
     s = s.replace('&e','')
+    s = s.replace('&r','') 
     
     return s
  
@@ -54,7 +56,7 @@ def remove_color_tags(s):
 playerdata_file_list=glob.glob(PLAYER_DATA_DIR+"/*.dat")
 
 #per permissions file 
-with open(PERMISSIONS_FILE, "r") as stream:
+with open(PERMISSIONS_FILE, "r",encoding='utf-8') as stream:
     try:
         pex_permissions = yaml.safe_load(stream)
         #print(dict)
@@ -120,7 +122,13 @@ for playerdata_filename in playerdata_file_list:
     admin['group'] = 'default'
     admin['prefix'] =''
     
+    try: 
+        admin['suffix'] = pex_users[key]['options']['suffix'];
+    except KeyError:
+        admin['suffix'] = ''
+    
     if key in pex_users: 
+        
     
         #there can be several groups, we need to find one relevant to administrative ladder 
         #TODO: one may say that we need to find single primary group, but collect  prefixes  and suffixes from ALL groups. 
@@ -140,6 +148,7 @@ for playerdata_filename in playerdata_file_list:
 
         
     admin['prefix'] = remove_color_tags (admin['prefix'])
+    admin['suffix'] = remove_color_tags (admin['suffix'])
 
     with open(STATS_DIR +'/' + admin['uuid'] +'.json') as f:
         stats = json.load(f)
@@ -190,41 +199,8 @@ for user in admins:
     #if user['name'] not in registered_users and user['whitelisted']:    
     #    print(user['name'])
     
-    medals=''
-    v_medal=''
-    m_medal=''
-    b_medal=''
+    medals = str(user['suffix'])
     
-    # veteran medal, for played time
-    if str(format_time(user['play_time'])) >'05':
-        v_medal= 'ⓥ'
-    if str(format_time(user['play_time'])) >'10':
-        v_medal= 'Ⓥ'    
-    if str(format_time(user['play_time'])) >'20':
-        v_medal= 'Ⓥ✻'      
-        
-    # miner medal, for mined blocks
-    if int(user['mined']) >=100000:
-        m_medal= 'ⓜ'
-    if int(user['mined']) >=150000:
-        m_medal= 'Ⓜ'    
-    if int(user['mined']) >=200000:
-        m_medal= 'Ⓜ✻'          
-    
-    # Builder medal, for built blocks
-    if int(user['used']) >=150000:
-        b_medal= 'ⓑ'
-        
-    if int(user['used']) >=300000:
-        b_medal= 'Ⓑ'    
-        
-    if int(user['used']) >=400000:
-        b_medal= 'Ⓑ✻'  
-
-    if status !='<s>W</s>':
-        medals += b_medal  
-        medals += m_medal  
-        medals += v_medal  
     
     discord = '&#10004' if user['discord'] !='' else ''
     if True: #user['whitelisted']:    
