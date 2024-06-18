@@ -117,8 +117,18 @@ for playerdata_filename in playerdata_file_list:
     admin['first_played'] = int(str(nbtfile['bukkit']['firstPlayed']))//1000
     admin['name'] = str(nbtfile['bukkit']['lastKnownName'])
     
+    admin['group'] = 'default'
+    
     if key in pex_users: 
-        admin['group'] = pex_users[key]['group'][0]
+    
+        #there can be several groups, we need to find one relevant to administrative ladder 
+        #TODO: one may say that we need to find single primary group, but collect  prefixes  and suffixes from ALL groups. 
+        if 'group' in pex_users[key]:
+            for group in pex_users[key]['group']:         
+                if group in ranks: 
+                    admin['group'] = group
+                    break
+        
         options = pex_users[key].get('options')
         if options is not None:
             #admin['name'] = options['name']
@@ -127,9 +137,6 @@ for playerdata_filename in playerdata_file_list:
             admin['prefix'] =''
         
 
-    else:
-        admin['group'] = 'default'
-        admin['prefix'] =''
         
     admin['prefix'] = remove_color_tags (admin['prefix'])
 
