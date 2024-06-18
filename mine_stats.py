@@ -118,6 +118,7 @@ for playerdata_filename in playerdata_file_list:
     admin['name'] = str(nbtfile['bukkit']['lastKnownName'])
     
     admin['group'] = 'default'
+    admin['prefix'] =''
     
     if key in pex_users: 
     
