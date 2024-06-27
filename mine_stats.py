@@ -11,8 +11,7 @@ from zwebpage import ZWebPage
 
 
 MINECRAFT_DIR = "d:/.Minecraft.1.20-paper_world_n2"
-#MINECRAFT_DIR = ".Minecraft.1.20-paper_world_n2"
-
+#MINECRAFT_DIR = "d:/.minecraft_server"
 
 STATS_DIR = MINECRAFT_DIR + "/world/stats"
 PLAYER_DATA_DIR = MINECRAFT_DIR +"/world/playerdata"
@@ -101,6 +100,15 @@ registered_users =[]
 for ruser in registered_users1:
     registered_users.append(ruser[0])    
 
+# let's obtain the list of materials, counted as blocks.
+# we need them for builder statistics
+block_materials = []
+with open("blocks.txt", "r") as f:
+    mat_lines = f.readlines()
+
+for mat_line in mat_lines:
+    block_materials.append("minecraft:"+mat_line.lower().strip())
+
 #read data from user files
 admins= []
 for playerdata_filename in playerdata_file_list:
@@ -159,7 +167,13 @@ for playerdata_filename in playerdata_file_list:
         else:
             admin['mined'] = 0   
         if "minecraft:used" in stats["stats"]:
-            admin['used'] = sum(stats["stats"]["minecraft:used"].values())
+            admin['used'] = 0
+            for mat in stats["stats"]["minecraft:used"]:
+                if mat in block_materials:
+                    admin['used'] += stats["stats"]["minecraft:used"][mat]
+                else:
+                    #print(mat)
+                    pass
         else:
             admin['used'] = 0
             
