@@ -239,15 +239,27 @@ banlist_html =''
 banlist_html += '<h1>Активные баны</h1> \n'
 banlist_html += '<table class="sortable">\n'
 
-banlist_html +='<tr><th>Игрок</th><th>Когда забанен</th><th>Кем</th><th>Причина бана</th><th>Срок</th><th>В белом списке</th></tr>\n'
+banlist_html +='<tr><th>Игрок</th><th>Cуффикс</th><th>Наигранное время</th><th>Когда забанен</th><th>Кем</th><th>Причина бана</th><th>Срок</th></tr>\n' #<th>В белом списке</th>
+
+banlist.sort(key=lambda ban: ban["created"],  reverse = True)
 for ban in banlist:
     whitelisted = (ban["uuid"] in whitelist_uuids) 
     ban_end = ban["expires"]
     if ban_end == "forever":
         ban_end = 'Навсегда'
+     
+    #Наигранное время 
+    suffix = ""
+    for user in admins: 
+        
+        if str(user['uuid']) ==  str(ban['uuid']):
+            suffix = str(user['suffix'])
+            played_time = str(format_time(user['play_time']))
+            break
+        
     if whitelisted:
-        banlist_html +='<tr><td>'+ban["name"]+'</td><td>'+ban["created"]+'</td><td>'+remove_color_tags(ban["source"].replace('§','&'))+'</td><td>'+ban["reason"]+'</td>'\
-                      +'<td>'+ban_end+'</td><td>'+str(whitelisted)+'</td></tr> \n'
+        banlist_html +='<tr><td>'+ban["name"]+'</td><td>'+suffix+ '</td><td>'+played_time+'</td><td>'+ban["created"]+'</td><td>'+remove_color_tags(ban["source"].replace('§','&'))+'</td><td>'+ban["reason"]+'</td>'\
+                      +'<td>'+ban_end+'</td></tr> \n' #<td>'+str(whitelisted)+'</td>
 
 banlist_html += '</table>\n'
 
