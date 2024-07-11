@@ -14,7 +14,8 @@ logfiles = [f for f in listdir(LOGS_DIR) if isfile(join(LOGS_DIR, f))]
 print(str(len(logfiles))+' log files found')
 
 #search_term = "([.]?[A-Za-z0-9_]+) issued server command: ([/][a-z:]+)" 
-search_term = "[.]?([A-Za-z0-9_]+) issued server command: ([/][a-z:]+)" 
+#search_term = "[.]?([A-Za-z0-9_]+) issued server command: ([/][a-z:]+)" 
+search_term = "[.]?([A-Za-z0-9_]+) issued server command: ([/]lb) rollback" 
 
 X ={}
 
@@ -43,7 +44,8 @@ admin_commands_0 = ('/tp', '/kill','/invsee')
 
 #real admin commands
 #admin_commands_1 = ('/tps', '/kick', '/lb','/logblock','/banlist', '/tempban', '/ban', '/banip', '/unban', '/pardon'  )
-admin_commands_1 = ('/kick', '/tempban', '/ban', '/banip', '/unban', '/pardon'  )
+#admin_commands_1 = ('/kick', '/tempban', '/ban', '/banip', '/unban', '/pardon'  )
+admin_commands_1 = ('/lb','/logblock')
 
 #operator_commands
 admin_commands_2 = ('/gamemode', '/pex','/promote', '/demote', '/summon', '/give', '/nick')
@@ -63,6 +65,7 @@ for gzfile in logfiles:
             command=r.groups()[1]
             
             if command  in admin_commands_1:
+                print(gzfile, line)
                 if user_name not in X:
                     X[user_name]={}
         

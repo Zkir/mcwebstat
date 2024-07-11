@@ -1,0 +1,32 @@
+.air-message {
+    left: 0;
+    bottom: 32px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    z-index: 6;
+    animation: showSlow .5s ease-in-out;
+
+    & > span {
+        margin: auto;
+        padding: 16px 32px;
+        font-size: 16px;
+        font-weight: 500;
+        color: $appFontColorPrimary;
+        background-color: #fff;
+        border-radius: 32px;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    }
+}
+
+@keyframes showSlow {
+    0% {
+        bottom: 0;
+        opacity: 0;
+    }
+    100% {
+        bottom: 32px;
+        opacity: 1;
+    }
+}

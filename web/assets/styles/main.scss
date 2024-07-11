@@ -1,0 +1,15 @@
+@import "core/variables";
+@import "core/reset";
+@import "core/fonts";
+@import "core/typography";
+@import url(https://cdnjs.cloudflare.com/ajax/libs/primeicons/7.0.0/primeicons.min.css);
+
+@import "components/header";
+@import "components/footer";
+
+@import "ui/body";
+@import "ui/layout";
+@import "ui/container";
+@import "ui/content";
+@import "ui/map";
+@import "ui/air-message";

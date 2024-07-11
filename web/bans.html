@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="assets/styles/main.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="layout">
+        <div class="layout-group">
+            <app-header></app-header>
+
+            <main class="content">
+                <section class="container">
+                    <div class="content__inner">
+                        <div class="content__block">
+
+                            <h1>Активные баны</h1>
+
+                            <p-datatable :value="dataBansList" v-model:expanded-rows="dataBansExpandedRows" dataKey="id" removableSort stripedRows sortField="name" class="content__table">
+                                <p-column expander style="width: 5rem"></p-column>
+                                <p-column field="name" header="Имя" sortable></p-column>
+                                <p-column field="who" header="Кем забанен" sortable></p-column>
+                                <p-column field="reason" header="Причина бана" sortable></p-column>
+                                <p-column field="time" header="Срок" sortable></p-column>
+                                <template #expansion="slotProps">
+                                    <p-datatable :value="slotProps.data.more">
+                                        <p-column field="suffix" header="Медали"></p-column>
+                                        <p-column field="time_gameplay" header="Наигранное время"></p-column>
+                                        <p-column field="date_ban" header="Когда забанен"></p-column>
+                                    </p-datatable>
+                                </template>
+                            </p-datatable>
+
+
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <app-footer></app-footer>
+    </div>
+</div>
+
+<script type="text/javascript" src="assets/scripts/libraries/jquery-3.5.1.js"></script>
+<script src="https://unpkg.com/vue@3.4.31/dist/vue.global.prod.js"></script>
+<script src="https://unpkg.com/primevue/umd/primevue.min.js"></script>
+<script src="https://unpkg.com/@primevue/themes/umd/aura.min.js"></script>
+
+<script type="module" src="assets/scripts/vue.js"></script>
+<script type="module" src="assets/scripts/menu.js"></script>
+
+</body>
+</html>
