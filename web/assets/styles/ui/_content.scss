@@ -1,0 +1,258 @@
+.content {
+  &__inner {
+    padding: 64px;
+    background-color: #fff;
+    border-radius: 32px;
+  }
+
+  &__block {
+    margin-bottom: 48px;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  & h1 {
+    margin-bottom: 24px;
+    font-size: 32px;
+    font-weight: 600;
+    color: $appFontColorPrimary;
+  }
+
+  & h2 {
+    margin-bottom: 16px;
+    font-size: 24px;
+    font-weight: 600;
+    color: $appFontColorPrimary;
+  }
+
+  & h3 {
+    margin-bottom: 16px;
+    font-size: 20px;
+    font-weight: 600;
+    color: $appFontColorPrimary;
+  }
+
+  & p {
+    margin: 16px 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: $appFontColorPrimary;
+    line-height: 140%;
+  }
+
+  & a {
+    color: $appFontColorLink;
+  }
+
+  & ul,
+  & ol {
+    margin: 16px 0;
+    & li {
+      margin-bottom: 12px;
+      font-size: 16px;
+      font-weight: 500;
+      color: $appFontColorPrimary;
+      line-height: 140%;
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  ul.list-style-sword {
+    list-style-type: none;
+
+    & li {
+      display: flex;
+      align-items: center;
+
+      &::before {
+        margin-right: 12px;
+        width: 16px;
+        height: 16px;
+        content: '';
+        background-image: url('../images/icons/sword.png');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        display: inline-block;
+      }
+    }
+  }
+
+  &__updated {
+    font-size: 16px;
+    font-weight: 500;
+    color: $appColorSecondary;
+    display: flex;
+    align-items: center;
+
+    &::before {
+      margin-right: 32px;
+      content: '';
+      height: 3px;
+      background-color: $appColorSecondary;
+      flex: 1;
+    }
+  }
+
+  &__command {
+    margin: 16px 0;
+    padding: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    color: $appFontColorPrimary;
+    background-color: #f0f0f0;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    transition: all .5s;
+
+    &::before {
+      content: '/';
+      margin-right: 12px;
+      max-width: 32px;
+      width: 32px;
+      height: 32px;
+      font-size: 16px;
+      font-weight: 600;
+      color: $appFontColorPrimary;
+      background-color: #fff;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &::after {
+      content: '\e955';
+      margin-left: 32px;
+      max-width: 32px;
+      width: 32px;
+      height: 32px;
+      font-family: 'primeicons';
+      font-size: 16px;
+      font-weight: 500;
+      color: $appFontColorPrimary;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &:hover {
+      cursor: pointer;
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    }
+
+    &_active::after {
+      animation: shakeCopyIcon .5s ease-in-out;
+      animation-iteration-count: 2;
+    }
+    
+    @keyframes shakeCopyIcon {
+      0% {
+        transform: rotate(0);
+      }
+      25% {
+        transform: rotate(45deg);
+      }
+      50% {
+        transform: rotate(0);
+      }
+      75% {
+        transform: rotate(-45deg);
+      }
+      100% {
+        transform: rotate(0);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+
+  .content {
+    &__inner {
+      padding: 32px;
+    }
+
+    &__block {
+      margin-bottom: 32px;
+    }
+
+    & h1 {
+      margin-bottom: 24px;
+      font-size: 28px;
+    }
+
+    & h2 {
+      margin-bottom: 12px;
+      font-size: 20px;
+    }
+
+    & h3 {
+      margin-bottom: 12px;
+      font-size: 16px;
+    }
+
+    & p {
+      margin: 12px 0;
+      font-size: 12px;
+    }
+
+    & ul,
+    & ol {
+      margin: 12px 0;
+      & li {
+        margin-bottom: 8px;
+        font-size: 12px;
+      }
+    }
+
+    ul.list-style-sword {
+
+      & li {
+
+        &::before {
+          margin-right: 8px;
+          width: 12px;
+          height: 12px;
+        }
+      }
+    }
+
+    &__updated {
+      font-size: 12px;
+
+      &::before {
+        margin-right: 16px;
+        height: 2px;
+      }
+    }
+
+    &__command {
+      margin: 12px 0;
+      font-size: 12px;
+
+      &::before {
+        margin-right: 8px;
+        min-width: 24px;
+        width: 24px;
+        height: 24px;
+        font-size: 12px;
+      }
+
+      &::after {
+        margin-left: 16px;
+        min-width: 24px;
+        width: 24px;
+        height: 24px;
+        font-size: 12px;
+      }
+    }
+  }
+}

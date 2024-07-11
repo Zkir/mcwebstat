@@ -1,0 +1,120 @@
+.footer {
+    margin-top: 32px;
+    padding: 32px 0;
+    background-color: #fff;
+
+    &__wrapper {
+        display: grid;
+        grid-template-columns: 96px 1fr 1fr 1fr 1fr;
+        gap: 64px;
+    }
+
+    &__col {
+        &:nth-of-type(2) {
+            grid-column: 2 / 4;
+        }
+    }
+
+    &__logo {
+        width: 100%;
+    }
+
+    &__copyright {
+        margin-top: 16px;
+    }
+
+    &__text {
+        font-size: 14px;
+        font-weight: 500;
+        color: rgba($appFontColorPrimary, .8);
+        display: block;
+    }
+
+    &__menu {
+        &-item {
+            margin-bottom: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            color: $appFontColorPrimary;
+            display: block;
+
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    &__social {
+        display: flex;
+        justify-content: flex-end;
+
+        &-item {
+            width: 40px;
+            height: 40px;
+            color: #fff;
+            background-color: $appColorPrimary;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all .5s;
+
+            &:hover {
+                transform: scale(.95);
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 900px) {
+
+    .footer {
+        margin-top: 24px;
+        padding: 24px 0;
+
+        &__wrapper {
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            gap: 24px;
+        }
+
+        &__col {
+            &:nth-of-type(2) {
+                grid-column: 1 / 2;
+            }
+        }
+
+        &__logo {
+            margin: 0 auto;
+            width: 96px;
+        }
+
+        &__copyright {
+            margin-top: 16px;
+        }
+
+        &__text {
+            font-size: 10px;
+            text-align: center;
+        }
+
+        &__menu {
+            &-item {
+                margin-bottom: 8px;
+                font-size: 12px;
+                text-align: center;
+            }
+        }
+
+        &__social {
+            justify-content: center;
+
+            &-item {
+                width: 32px;
+                height: 32px;
+            }
+        }
+    }
+
+}

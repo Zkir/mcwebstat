@@ -48,6 +48,13 @@ def remove_color_tags(s):
     s = s.replace('&c','')
     s = s.replace('&e','')
     s = s.replace('&r','') 
+
+    s = s.replace('§4','')
+    s = s.replace('§6','')
+    s = s.replace('§9','')
+    s = s.replace('§c','')
+    s = s.replace('§e','')
+    s = s.replace('§r','')
     
     return s
  
@@ -193,7 +200,7 @@ for playerdata_filename in playerdata_file_list:
 admins.sort(key=sort_users_by_rank,  reverse = True)
 
 
-page2 = ZWebPage("adminlist.html", "Игроки")
+page2 = ZWebPage("_build/adminlist.html", "Игроки")
 
 admin_list_html=''
 
@@ -201,10 +208,15 @@ admin_list_html += '<h1>Игроки сервера "Добрый король �
 
 admin_list_html += '<table class="sortable">'
 admin_list_html += '<tr><th>Имя</th><th>Первое появление</th><th>Префикс</td><th>Медали</th><th>Наигранное время</th><th>Добыто</th><th>Использовано</th><th>Последнее появление</th><th>Статус</th><th>Дискорд</th></tr> \n'
+i=0
+players_json = []
 for user in admins:
     status=''
+    status1=''
+    i=i+1
     if not user['whitelisted']:
         status +='<s>W</s>'
+        status1 = " ̶W̶"
         
         
     #if user['name'] in registered_users:
@@ -215,8 +227,9 @@ for user in admins:
     
     medals = str(user['suffix'])
     
-    
     discord = '&#10004' if user['discord'] !='' else ''
+    discord1 = '✔' if user['discord'] !='' else ''
+
     if True: #user['whitelisted']:    
         admin_list_html +=  '<tr>'  
         #admin_list_html += '<td>'+str(user['uuid'])+'</td>'
@@ -227,14 +240,36 @@ for user in admins:
                            + '<td style="text-align:center">'+discord+'</td>'
         admin_list_html += '</tr> \n'
 
+        player_json = {}
+        player_json["id"] = i
+        player_json["name"] = str(user['name'])
+        player_json["prefix"] = str(user['prefix'])
+        player_json["medals"] = medals
+        player_json["mined"] = str(user['mined'])
+        player_json["used"] = str(user['used'])
+        player_json["status"] = status 
+        player_json["discord"] = discord1
+        player_json_more = {} 
+
+        player_json_more["date_register"] = format_unix_time(user['first_played'])
+        player_json_more["time_gameplay"] = str(format_time(user['play_time']))
+        player_json_more["date_last_usage"] = format_unix_time(user['last_played'])
+
+        player_json["more"] =[]
+        player_json["more"].append(player_json_more)
+        players_json.append(player_json)
+
 admin_list_html += '</table>'
+
+with open('_build/players.json', 'w', encoding='utf-8') as f:
+    json.dump(players_json, f, ensure_ascii=False, indent=4)
 
 
 page2.print(admin_list_html)
-page2.write()
+#page2.write()
  
 
-page1 = ZWebPage("banlist.html", "Активные баны")
+page1 = ZWebPage("_build/banlist.html", "Активные баны")
 banlist_html =''
 banlist_html += '<h1>Активные баны</h1> \n'
 banlist_html += '<table class="sortable">\n'
@@ -242,7 +277,10 @@ banlist_html += '<table class="sortable">\n'
 banlist_html +='<tr><th>Игрок</th><th>Cуффикс</th><th>Наигранное время</th><th>Когда забанен</th><th>Кем</th><th>Причина бана</th><th>Срок</th></tr>\n' #<th>В белом списке</th>
 
 banlist.sort(key=lambda ban: ban["created"],  reverse = True)
+i=0
+bans_json = []
 for ban in banlist:
+    i=i+1
     whitelisted = (ban["uuid"] in whitelist_uuids) 
     ban_end = ban["expires"]
     if ban_end == "forever":
@@ -261,8 +299,30 @@ for ban in banlist:
         banlist_html +='<tr><td>'+ban["name"]+'</td><td>'+suffix+ '</td><td>'+played_time+'</td><td>'+ban["created"]+'</td><td>'+remove_color_tags(ban["source"].replace('§','&'))+'</td><td>'+ban["reason"]+'</td>'\
                       +'<td>'+ban_end+'</td></tr> \n' #<td>'+str(whitelisted)+'</td>
 
+        ban_json = {}
+        ban_json["id"] = i
+
+        ban_json["name"] = ban["name"]
+
+        ban_json["who"]  = remove_color_tags(ban["source"].replace('§','&'))
+        ban_json["reason"] = ban["reason"]
+        ban_json["time"] = ban_end
+        ban_json_more = {} 
+
+        ban_json_more["time_gameplay"] = played_time
+        ban_json_more["date_ban"] = ban["created"]
+        ban_json_more["suffix"] =  suffix
+
+        ban_json["more"] = []
+        ban_json["more"].append(ban_json_more)
+        bans_json.append(ban_json)
+         
+
 banlist_html += '</table>\n'
 
 page1.print(banlist_html)
-page1.write()
+#page1.write()
+
+with open('_build/bans.json', 'w', encoding='utf-8') as f:
+    json.dump(bans_json, f, ensure_ascii=False, indent=4)
 

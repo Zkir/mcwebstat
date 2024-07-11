@@ -8,6 +8,9 @@ def md2html(source, target):
     md=f.read()
     html = markdown.markdown(md)
     html=re.sub(r'.md',r'.html',html)
+    html=html.replace('<blockquote>', '<span class="content__command" @click="saveText">')
+    html=html.replace('</blockquote>','</span>')
+    html=html.replace('<ul>','<ul class="list-style-sword">')
 
     #with open(EXPORT_PATH+target, 'w', encoding="utf-8") as f1:
     #       f1.write(html)
