@@ -30,7 +30,7 @@ export const footerComponent = {
         footerMenu: [
             {
                 to: '/',
-                name: 'Главная'
+                name: 'Карта Мира'
             },
             {
                 to: '/rules.html',
@@ -43,6 +43,10 @@ export const footerComponent = {
             {
                 to: '/bans.html',
                 name: 'Баны'
+            },
+			{
+                to: '/sitemap.html',
+                name: 'Оглавление сайта'
             },
         ]
     })

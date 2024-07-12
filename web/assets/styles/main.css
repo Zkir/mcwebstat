@@ -382,8 +382,8 @@ body {
   flex: 1;
 }
 .content__command {
-  margin: 16px 0;
-  padding: 8px;
+  margin: 16px 0px;
+  padding: 8px 16px;
   font-size: 16px;
   font-weight: 500;
   color: #1A1A1A;
@@ -394,6 +394,7 @@ body {
   position: relative;
   transition: all 0.5s;
 }
+/*
 .content__command::before {
   content: "/";
   margin-right: 12px;
@@ -409,6 +410,8 @@ body {
   align-items: center;
   justify-content: center;
 }
+*/
+
 .content__command::after {
   content: "\e955";
   margin-left: 32px;

@@ -33,7 +33,7 @@ export const headerComponent = {
         headerMenu: [
             {
                 to: '/',
-                name: 'Главная',
+                name: 'Карта мира',
                 blank: false
             },
             {
