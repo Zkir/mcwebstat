@@ -358,6 +358,7 @@ body {
 }
 .content ul.list-style-sword li::before {
   margin-right: 12px;
+  padding-left: 16px;
   width: 16px;
   height: 16px;
   content: "";
