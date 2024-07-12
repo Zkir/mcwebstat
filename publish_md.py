@@ -11,11 +11,10 @@ def md2html(source, target):
     html=html.replace('<blockquote>', '<span class="content__command" @click="saveText">')
     html=html.replace('</blockquote>','</span>')
     html=html.replace('<ul>','<ul class="list-style-sword">')
+    
+    page_title =  md.split('\n',2)[0].replace('#',''). strip()
 
-    #with open(EXPORT_PATH+target, 'w', encoding="utf-8") as f1:
-    #       f1.write(html)
-
-    page1 = ZWebPage(EXPORT_PATH+target, target)
+    page1 = ZWebPage(EXPORT_PATH+target, page_title )
     page1.print(html)
     page1.write()
 
