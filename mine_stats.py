@@ -15,6 +15,7 @@ MINECRAFT_DIR = "d:/.Minecraft.1.20-paper_world_n2"
 
 STATS_DIR = MINECRAFT_DIR + "/world/stats"
 PLAYER_DATA_DIR = MINECRAFT_DIR +"/world/playerdata"
+ADVANCEMENTS_DIR = MINECRAFT_DIR +"/world/advancements"
 
 WHITELIST_FILE = MINECRAFT_DIR +"/whitelist.json"
 BANNEDLIST_FILE = MINECRAFT_DIR +"/banned-players.json"
@@ -115,6 +116,17 @@ with open("blocks.txt", "r") as f:
 
 for mat_line in mat_lines:
     block_materials.append("minecraft:"+mat_line.lower().strip())
+    
+
+#also obtain named achivements, because in world files named and unnamed achivements are mixed
+
+named_advancements = []
+with open("advancements.txt", "r") as f:
+    advancements_lines = f.readlines()
+
+for advancements_line in advancements_lines:
+    named_advancements.append("minecraft:"+advancements_line.lower().strip())
+    
 
 #read data from user files
 admins= []
@@ -194,8 +206,21 @@ for playerdata_filename in playerdata_file_list:
 
     if True: #admin['group'] != 'default': 
         admins.append(admin)
-
+        
        
+     
+    #advancements  
+    with open(ADVANCEMENTS_DIR +'/' + admin['uuid'] +'.json') as f:
+        advancements = json.load(f)
+    
+    n_advancements = 0
+    for advancement_name, advancement in advancements.items():
+        
+        #if isinstance(advancement,dict):
+        if advancement_name in named_advancements: 
+            if (advancement['done']==True):
+                n_advancements += 1
+    admin["advancements"]=n_advancements        
 
 admins.sort(key=sort_users_by_rank,  reverse = True)
 
@@ -242,13 +267,15 @@ for user in admins:
 
         player_json = {}
         player_json["id"] = i
+        player_json["uuid"] = str(user['uuid'])
         player_json["name"] = str(user['name'])
         player_json["prefix"] = str(user['prefix'])
         player_json["medals"] = medals
-        player_json["mined"] = str(user['mined'])
-        player_json["used"] = str(user['used'])
+        player_json["mined"] = int(user['mined'])
+        player_json["used"] = int(user['used'])
         player_json["status"] = status 
         player_json["discord"] = discord1
+        player_json["advancements"] = int(user['advancements'])
         player_json_more = {} 
 
         player_json_more["date_register"] = format_unix_time(user['first_played'])
