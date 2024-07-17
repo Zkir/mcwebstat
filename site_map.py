@@ -54,21 +54,21 @@ with open('_build/site_map.json', 'w', encoding='utf-8') as f:
     
     
 html = ''
-#html += '<ul class="list-style-sword">\n'
 html += '<h1>Оглавление сайта</h1>\n'
+#html += '<ul class="list-style-sword">\n'
 html += '<ul>\n'
 for element in site_map:
     if element["type"] == "page":
         html += '<li>'+ '<a href="'+element["url"]+'">' + element["title"]+ '</a></li>\n'
     else:
-        html += '<li><b>'+ element["title"]+ '</b></li>\n'
-        html += '<ul>'
+        html += '<li><b>'+ element["title"]+ '</b>\n'
+        html += '<ul style="margin-left: 30px;">'
         for el2 in element["pages"]:
             html += '<li>'+ '<a href="'+el2["url"]+'">' + el2["title"]+ '</a></li>\n'
         html += "</ul>\n"
+        html += "</li>\n"
 
 html += "</ul>\n"
-
 
 page1 = ZWebPage('_build/sitemap.html', "Оглавление сайта")
 page1.print(html)
