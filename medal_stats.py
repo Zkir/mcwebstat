@@ -47,8 +47,8 @@ def main():
     page1 = ZWebPage("_build/medals.html", "Награды Сервера")
 
     medals_html="<h1> Награды сервера </h1>\n"
-
-    medals_html += '<table class="sortable">\n'
+    medals_html += '<div id="bka_scroll" class="a123" style="overflow:auto;">'
+    medals_html += '<table class="sortable" style="width: 100%;">\n'
     medals_html += '<th>Вид награды</th><th>Название награды</th><th>Правила награждения</th><th>Символ</th><th>Призы</th><th>Количество награжденных</th>'
 
     for medal in medals['Medals']:
@@ -74,6 +74,7 @@ def main():
         
 
     medals_html += '</table>\n'
+    medals_html += '</div>'
     medals_html += "<h3> Примечания</h3>\n"
     medals_html += '<p>Отличие ("звёздочка") выдается за побитие текущего рекорда, так что порог на награды с отличием со временем увеличивается.</p>'
 
