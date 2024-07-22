@@ -28,6 +28,10 @@
 
                             <p-datatable :value="dataPlayersList" v-model:expanded-rows="dataPlayersExpandedRows" dataKey="id" removableSort stripedRows sortField="name" class="content__table">
                                 <p-column expander style="width: 5rem" ></p-column>
+								
+								<p-column field="face" header="Лицо" >
+                                            <template #body="{ data }"><div v-html="data.face"></div></template>
+                                </p-column>
                                 <p-column field="name" header="Имя" sortable>
                                     <template #body="{ data }"><div v-html="data.name"></div></template>
                                 </p-column>
@@ -46,12 +50,6 @@
                                     <template #body="{ data }"><div v-html="data.used"></div></template>
                                 </p-column>
 
-                                <p-column field="status" header="Статус" sortable>
-                                    <template #body="{ data }"><div v-html="data.status"></div></template>
-                                </p-column>
-                                <p-column field="discord" header="Discord" sortable>
-                                    <template #body="{ data }"><div v-html="data.discord"></div></template>
-                                </p-column>
 								
 								<p-column field="advancements" header="Достижения" sortable>
                                     <template #body="{ data }"><div v-html="data.advancements"></div></template>
@@ -68,6 +66,15 @@
                                         <p-column field="date_last_usage" header="Последнее появление">
                                             <template #body="{ data }"><div v-html="data.date_last_usage"></div></template>
                                         </p-column>
+										
+										<p-column field="status" header="Статус" sortable>
+                                            <template #body="{ data }"><div v-html="data.status"></div></template>
+                                        </p-column>
+                                        <p-column field="discord" header="Discord" sortable>
+                                            <template #body="{ data }"><div v-html="data.discord"></div></template>
+                                        </p-column>
+										
+										
                                     </p-datatable>
 
                                 </template>
