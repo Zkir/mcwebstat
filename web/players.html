@@ -26,7 +26,7 @@
                         <div class="content__block">
                             <h1>Игроки сервера "Добрый король и веселые сыроежки"</h1>
 
-                            <p-datatable :value="dataPlayersList" v-model:expanded-rows="dataPlayersExpandedRows" dataKey="id" removableSort stripedRows sortField="name" class="content__table">
+                            <p-datatable :value="dataPlayersList" paginator :rows="50" v-model:expanded-rows="dataPlayersExpandedRows" dataKey="id" removableSort stripedRows sortField="name" class="content__table">
                                 <p-column expander style="width: 5rem" ></p-column>
 								
 								<p-column field="face" header="Лицо" >
