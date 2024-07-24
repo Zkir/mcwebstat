@@ -29,7 +29,11 @@ NLOGIN_DB_FILE = MINECRAFT_DIR+ '/plugins/nLogin/nlogin.db'
 ranks={'admins4':5, 'admins3':4,'admins2':3,'admins':2,'police':1, 'default':0}
 
 def sort_users_by_rank(user):
-    return str(ranks[user['group']]) +'_' + str(format_time(user['play_time']))
+    if user['whitelisted']:
+        wl='1'
+    else: 
+        wl='0'    
+    return str(ranks[user['group']]) + '_' + str(wl) +'_' + str(format_time(user['play_time']))
 
 def  format_time(t): 
     t=t//20
