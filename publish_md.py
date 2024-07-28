@@ -1,7 +1,10 @@
+import os
 import markdown
 from zwebpage import ZWebPage
 import re
-EXPORT_PATH = '_build/'
+
+EXPORT_PATH = '_build'
+DOCS_PATH = "docs"
 
 def md2html(source, target):
     f = open(source,  "r", encoding="utf-8")
@@ -14,14 +17,17 @@ def md2html(source, target):
     
     page_title =  md.split('\n',2)[0].replace('#',''). strip()
 
-    page1 = ZWebPage(EXPORT_PATH+target, page_title )
+    page1 = ZWebPage(EXPORT_PATH+ '/' + target, page_title )
     page1.print(html)
     page1.write()
 
 
-md2html("docs/rules.md",'rules.html')
-md2html("docs/moderation.md",'moderation.html')
-md2html("docs/Moderation_guide.md",'Moderation_guide.html')
-md2html("docs/link_ds.md",'link_ds.html')
+files = os.listdir(DOCS_PATH)
+for file in files:
+    filename, file_extension = os.path.splitext(file)
+    
+    if file_extension == ".md":
+        md2html("docs/"+filename+".md",filename + '.html')
+
 
 
