@@ -51,6 +51,11 @@ export const headerComponent = {
                 name: 'Баны',
                 blank: false
             },
+			{
+                to: '/sitemap.html',
+                name: 'Документы',
+                blank: false
+            },
             {
                 to: 'https://discord.gg/wjSQsGW8rD',
                 name: 'Дискорд',
