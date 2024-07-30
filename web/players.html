@@ -30,7 +30,7 @@
                                 <p-column expander style="width: 5rem" ></p-column>
 								
 								<p-column field="face" header="Лицо" >
-                                            <template #body="{ data }"><div v-html="data.face"></div></template>
+                                    <template #body="{ data }"><div v-html="data.face"></div></template>
                                 </p-column>
                                 <p-column field="name" header="Имя" sortable>
                                     <template #body="{ data }"><div v-html="data.name"></div></template>
@@ -67,10 +67,10 @@
                                             <template #body="{ data }"><div v-html="data.date_last_usage"></div></template>
                                         </p-column>
 										
-										<p-column field="status" header="Статус" sortable>
-                                            <template #body="{ data }"><div v-html="data.status"></div></template>
+										<p-column field="status" header="Активность" >
+											<template #body="{ data }"><div v-html="data.activity"></div></template>
                                         </p-column>
-                                        <p-column field="discord" header="Discord" sortable>
+                                        <p-column field="discord" header="Discord" >
                                             <template #body="{ data }"><div v-html="data.discord"></div></template>
                                         </p-column>
 										
