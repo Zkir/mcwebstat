@@ -32,6 +32,9 @@ docs_pages = category("Документы")
 site_map.append(auto_pages)
 site_map.append(docs_pages)
 
+site_map.append(page("donate.html", "Поддержать сервер"))
+
+
 auto_pages["pages"].append(page("players.html", "Список игроков"))
 auto_pages["pages"].append(page("bans.html", "Активные баны"))
  
@@ -44,7 +47,8 @@ for file in files:
         page_title = get_page_title(html_dir+'/'+ file)
 
         if os.path.exists(docs_dir +'/' + filename +'.md'):
-            docs_pages["pages"].append(page(url, page_title))    
+            if  page(url, page_title) not in site_map:
+                docs_pages["pages"].append(page(url, page_title))    
         else:
             auto_pages["pages"].append(page(url, page_title))
   
