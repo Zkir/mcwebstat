@@ -24,6 +24,7 @@
 
                             <p-datatable :value="dataBansList" v-model:expanded-rows="dataBansExpandedRows" dataKey="id" removableSort stripedRows sortField="name" class="content__table">
                                 <p-column expander style="width: 5rem"></p-column>
+								<p-column field="face" header="Лицо" > <template #body="{ data }"><div v-html="data.face"></div></template>  </p-column>
                                 <p-column field="name" header="Имя" sortable></p-column>
                                 <p-column field="who" header="Кем забанен" sortable></p-column>
                                 <p-column field="reason" header="Причина бана" sortable></p-column>
