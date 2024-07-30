@@ -47,34 +47,33 @@ def main():
     page1 = ZWebPage("_build/medals.html", "Награды Сервера")
 
     medals_html="<h1> Награды сервера </h1>\n"
-    medals_html += '<div id="bka_scroll" class="a123" style="overflow:auto;">'
+    medals_html += '<div id="bka_scroll" class="a123" style="overflow:auto;">\n'
     medals_html += '<table class="sortable" style="width: 100%;">\n'
-    medals_html += '<th>Вид награды</th><th>Название награды</th><th>Правила награждения</th><th>Символ</th><th>Призы</th><th>Количество награжденных</th>'
+    medals_html += '<th>Название награды</th><th>Вид награды</th><th>Правила награждения</th><th>Символ</th><th>Призы</th><th>Количество награжденных</th> \n'
 
     for medal in medals['Medals']:
      
         medals_html += '<tr>\n    '
-        medals_html += '<td>' + medal['Medal']['medal_item']['title'] + '</td>' \
-                     + '<td>' + medal['Medal']['name'] +  '</td>' \
-                     + '<td>' +'Выдается '+ medal['Medal']['medal_item']['description'] + '</td>'\
-                     + '<td>' + remove_color_tags(medal['Medal']['symbol'])+ '</td>' \
-                     + '<td>'
+        medals_html += '<td column-name="Название награды">' + medal['Medal']['name'] +  '</td>' 
+        medals_html += '<td column-name="Вид награды">' + medal['Medal']['medal_item']['title'] + '</td>' 
+        medals_html += '<td column-name="Правила награждения">' +'Выдается '+ medal['Medal']['medal_item']['description'] + '</td>'\
+                     + '<td column-name="Символ">' + remove_color_tags(medal['Medal']['symbol'])+ '</td>' \
+                     + '<td column-name="Призы">'
 
         medals_html += medal['Medal']['medal_item']['material'] + ' 1' + '<br />'                 
         if 'prizes' in medal['Medal']:
             for prize in medal['Medal']['prizes']:
                 medals_html += prize['prize']['material'] + ' ' + str(prize['prize']['amount']) + '<br />'
-
+        medals_html += '</td>'
         
         n = medal_stats.get(medal['Medal']['id'],0)
 
-        medals_html += '</td>'\
-                     + '<td><center>'+str(n)+'</center></td>' \
+        medals_html += '<td column-name="Количество награжденных">'+str(n)+'</td>' \
                      + '</tr>\n'
         
 
     medals_html += '</table>\n'
-    medals_html += '</div>'
+    medals_html += '</div>\n'
     medals_html += "<h3> Примечания</h3>\n"
     medals_html += '<p>Отличие ("звёздочка") выдается за побитие текущего рекорда, так что порог на награды с отличием со временем увеличивается.</p>'
 
