@@ -1,0 +1,39 @@
+name: Deploy
+run-name: ${{ github.actor }} initiated deploy to production 🚀
+on: [push, workflow_dispatch]
+env:
+  web_root: d:\__test\_minecraft_site
+  scripts: d:\__test\scripts
+jobs:
+  Deploy:
+    runs-on: self-hosted
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"      
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Copy static web files
+        run: xcopy web ${{ env.web_root }} /YSQ
+        
+      - name: Copy composed files, maily from *.md
+        run: |
+          mkdir _build
+          python publish_md.py
+          python site_map.py
+          copy _build\*.html ${{ env.web_root }}
+          copy docs\*.png ${{ env.web_root }}
+          
+      - name: Copy scripts
+        run: |    
+          copy *.py  ${{ env.scripts }}
+          copy *.txt  ${{ env.scripts }}
+          copy *.bat  ${{ env.scripts }}          
+          
+          if( -not(Test-Path -Path ${{ env.scripts }}\_build) ) {mkdir ${{ env.scripts }}\_build}
+          if( -not(Test-Path -Path ${{ env.scripts }}\_build\activity) ) {mkdir ${{ env.scripts }}\_build\activity}
+          if( -not(Test-Path -Path ${{ env.scripts }}\zwebpage_template) ) {mkdir ${{ env.scripts }}\zwebpage_template}          
+          
+          copy zwebpage_template\*.* ${{ env.scripts }}\zwebpage_template
+          
+      - run: echo "🍏 This job's status is ${{ job.status }}."
