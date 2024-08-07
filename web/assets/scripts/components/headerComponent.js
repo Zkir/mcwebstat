@@ -56,6 +56,11 @@ export const headerComponent = {
                 name: 'Документы',
                 blank: false
             },
+				{
+                to: '/donate.html',
+                name: 'Поддержать нас',
+                blank: false
+            },
             {
                 to: 'https://discord.gg/wjSQsGW8rD',
                 name: 'Дискорд',
