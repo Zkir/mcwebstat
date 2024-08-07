@@ -26,6 +26,7 @@ html_dir = "_build"
 
 site_map = []
 site_map.append(page("index.html", "Карта мира"))
+site_map.append(page("rules.html", "Правила"))
 auto_pages = category("Данные")
 docs_pages = category("Документы")
 
