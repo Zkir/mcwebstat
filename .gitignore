@@ -1,7 +1,7 @@
-
-adminlist.html
-banlist.html
 __pycache__/zwebpage.cpython-312.pyc
-/_build
+_build/*.html
+_build/*.json
+_build/*.geojson
+_build/activity/*.png
 /__pycache__
 mcwebstat_config.yml
