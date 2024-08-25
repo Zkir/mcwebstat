@@ -18,7 +18,6 @@ jobs:
         
       - name: Copy composed files, maily from *.md
         run: |
-          mkdir _build
           python publish_md.py
           python site_map.py
           copy _build\*.html ${{ env.web_root }}

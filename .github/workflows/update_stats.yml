@@ -1,0 +1,28 @@
+name: Update Statistics
+run-name: ${{ github.actor }} initiated Statistics update 🚀
+on: [workflow_dispatch]
+env:
+  web_root: d:\__test\_minecraft_site
+jobs:
+  Update_Stats:
+    runs-on: self-hosted
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+          
+      - name: Update Main Player Statistics
+        run: |
+            python mine_stats.py
+            python medal_stats.py
+            python site_map.py
+            copy _build\*.html ${{ env.web_root }}
+            copy _build\*.json ${{ env.web_root }}\assets\json
+          
+      - name: Update Actitity Diagrams
+        run: |
+          python activity_stats.py
+          if( -not(Test-Path -Path ${{ env.web_root }}\activity) ) {mkdir ${{ env.web_root }}\activity}
+          copy _build\activity\*.png ${{ env.web_root }}\activity         
+          
+          
+      - run: echo "This job's status is ${{ job.status }}."
