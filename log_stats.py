@@ -3,10 +3,10 @@ import sys
 import gzip
 from os import listdir
 from os.path import isfile, join
-
+import json
 
 MINECRAFT_DIR = "d:/.Minecraft.1.20-paper_world_n2"
-LOGS_DIR="d:/_temp/logs"
+LOGS_DIR=MINECRAFT_DIR + "/logs"
 
 #obtain the list of log files in the directory
 logfiles = [f for f in listdir(LOGS_DIR) if isfile(join(LOGS_DIR, f))]
@@ -17,25 +17,15 @@ print(str(len(logfiles))+' log files found')
 #search_term = "[.]?([A-Za-z0-9_]+) issued server command: ([/][a-z:]+)" 
 search_term = "[.]?([A-Za-z0-9_]+) issued server command: ([/]lb) rollback" 
 
+#[00:21:08] [Server thread/INFO]: .JiveDuck4348614[/185.8.202.242:0] logged in with entity id 3403969 at ([world]-733.4234, 69.9375, 263.56415)
+#[08:09:50] [Server thread/INFO]: falyfay[/176.212.168.5:25860] logged in with entity id 3404528 at ([world]-1066.3217613394072, 67.0, 168.62756862394158)
+
+#login line
+login_line = r'\[Server thread\/INFO\]: ([.]?[A-Za-z0-9_]+)\[\/([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}):[0-9]*\] logged in with entity id'
+
 X ={}
 
-#f = LOGS_DIR + "/" + "latest.log"
-#for line in open(f, 'r',encoding='utf-8'):
-#    r=re.search(search_term, line)
-#    if r:
-#        user_name=r.groups()[0]
-#        command=r.groups()[1]
-# 
-#        if user_name not in X:
-#            X[user_name]={}
-#
-#        if command not in X[user_name]:
-#            X[user_name][command] = 0
-#    
-#        X[user_name][command] += 1
-#
-#
-#print(X)
+ip_addresses = {}
 
 non_admin_commands=('/whisper', '/tell', '/minecraft:msg', '/lay', '/sit','/spin', '/discord','/rules','/help')
 
@@ -56,6 +46,9 @@ admin_commands_2 = ('/gamemode', '/pex','/promote', '/demote', '/summon', '/give
 X = {}
 for gzfile in logfiles:
 
+    if gzfile[-6:] != "log.gz":
+        continue	
+	
     with gzip.open(join(LOGS_DIR, gzfile)) as f:
       for line in f:
         line = line.decode('utf-8') # for compatible with python3
@@ -65,7 +58,7 @@ for gzfile in logfiles:
             command=r.groups()[1]
             
             if command  in admin_commands_1:
-                print(gzfile, line)
+                #print(gzfile, line)
                 if user_name not in X:
                     X[user_name]={}
         
@@ -74,6 +67,20 @@ for gzfile in logfiles:
             
                 X[user_name][command] += 1
 
+        #analyze logins  
+        r=re.search(login_line, line)
+        if r:
+
+            user_name=r.groups()[0]
+            ip =r.groups()[1]
+
+            if ip not in ip_addresses:  
+                ip_addresses[ip] = []
+
+            if user_name not in ip_addresses[ip]:
+                ip_addresses[ip].append(user_name)
+
+          
 Y=[]
 for user_name in X:
     command_stats = X[user_name]
@@ -90,3 +97,21 @@ for user in Y:
     command_stats = X[user[0]]
     #print('   ', command_stats)
     #print ('')
+
+print()
+
+with open('_build/ips.json', 'w', encoding='utf-8') as f:
+    json.dump(ip_addresses, f, ensure_ascii=False, indent=4)
+
+#get just ips
+
+ips = sorted(ip_addresses)
+
+ips.sort(key=lambda ip: len(ip_addresses[ip]), reverse=True )
+
+
+for ip in ips:
+    if len(ip_addresses[ip])>1:
+        print(ip)
+        print("",ip_addresses[ip])
+
