@@ -7,6 +7,15 @@ import json
 
 MINECRAFT_DIR = "d:/.Minecraft.1.20-paper_world_n2"
 LOGS_DIR=MINECRAFT_DIR + "/logs"
+BANNEDLIST_FILE = MINECRAFT_DIR + "/banned-ips.json"
+
+with open(BANNEDLIST_FILE,encoding='utf-8') as f:
+        banlist = json.load(f)
+        
+banned_ips = []
+for rec in banlist:
+    banned_ips.append(rec["ip"])
+
 
 #obtain the list of log files in the directory
 logfiles = [f for f in listdir(LOGS_DIR) if isfile(join(LOGS_DIR, f))]
@@ -112,6 +121,10 @@ ips.sort(key=lambda ip: len(ip_addresses[ip]), reverse=True )
 
 for ip in ips:
     if len(ip_addresses[ip])>1:
-        print(ip)
+        print()
+        if ip in banned_ips:
+            print(ip, " -- BANNED")
+        else:    
+            print(ip )
         print("",ip_addresses[ip])
 
