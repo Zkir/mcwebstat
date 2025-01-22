@@ -23,7 +23,7 @@
 	<td> <img src="wonders/eifel_tower.png" alt="eifel tower" width="300px"> </img>  </td>
 	<td style="padding: 10px">
     	Как можно построить параболичекскую форму из прямых балок? Как бы там ни было, это место романтических свиданий и отличный вид на Старый Город.
-       	Поэт сказал, что смотровая площадка на вершине Эйфелевой Башни - это единственное место на сервере, откуда ее не видно.
+       	Один поэт сказал, что смотровая площадка на вершине Эйфелевой Башни - это единственное место на сервере, откуда ее не видно.
 		<a href="https://ru.wikipedia.org/wiki/%D0%AD%D0%B9%D1%84%D0%B5%D0%BB%D0%B5%D0%B2%D0%B0_%D0%B1%D0%B0%D1%88%D0%BD%D1%8F" >(Подробнее)</a></td>
 	<td align="center"> KaliopaMili </td>
 </tr>
@@ -31,7 +31,7 @@
 	<td> 3 </td><td> <a href="https://minecraft.zkir.ru/?worldname=world&mapname=surface&zoom=5&x=-190&y=64&z=-83" >Биг Бен</a> </td>
 	<td> <img src="wonders/big_ben.png" alt="big ben" width="300px"></img> </td>
 	<td style="padding: 10px">
-		Биг-Бен -- это часы на здании парламента. Парламента у нас как не было, так и нет, так что это символ неудавшейся попытки внедрить республиканскую форму правления.
+		Как известно, Биг-Бен -- это часы на здании парламента. Парламента у нас как не было, так и нет, так что теперь это символ неудавшейся попытки внедрить республиканскую форму правления.
 		<a href="https://ru.wikipedia.org/wiki/Биг-Бен">(Подробнее)</a> </td>
 	<td align="center">
 		<img src="https://minecraft.zkir.ru/tiles/faces/32x32/danya_84.png"></img><br />
@@ -42,8 +42,8 @@
 	<td> 4 </td><td> <a href="https://minecraft.zkir.ru/?worldname=world&mapname=surface&zoom=5&x=-431&y=64&z=495" >Нойшванштайн</a> </td>
 	<td> <img src="wonders/neuschwanstein.png" alt="neuschwanstein" width="300px"></img></td>
 	<td style="padding: 10px">
-		Замок на Лебедином Камне -- дом безумного короля. Министры ругали короля за такую огромную стройку и бесцельно потраченные на нее ресурсы,
-		включая алмазные блоки, но они быстро окупились потоком туристов.
+		Замок на Лебедином Камне -- дом влюблённого короля. Министры очень ругали короля за такую огромную стройку и бесцельно потраченные на нее ресурсы,
+		включая алмазные блоки, и даже объявили его безумным. Тем не менее, все затраты быстро окупились потоком туристов.
 		<a href="https://ru.wikipedia.org/wiki/%D0%9D%D0%BE%D0%B9%D1%88%D0%B2%D0%B0%D0%BD%D1%88%D1%82%D0%B0%D0%B9%D0%BD">(Подробнее)</a> </td>
 	<td align="center"> 
 		<img src="https://minecraft.zkir.ru/tiles/faces/32x32/SlepoySnaiper.png"></img> <br />
@@ -55,7 +55,7 @@
 	<td><img src="wonders/hanging_gardens.png" alt="hanging gardens" width="300px"></img> </td>
 	<td style="padding: 10px">
     	Мидийская царевна Амитис, выданная замуж за царя Вавилона, очень тосковала по пышным лесам своей родины. 
-		Видя горе своей жены, царь Вавилона приказал устроить сады на уступах пирамиды. В сухом климате Вавилона сады просто так не росли,
+		Видя горе своей жены, царь приказал устроить сады на уступах пирамиды. В сухом климате Вавилона сады просто так не росли,
 		и тысячи рабов денно и нощно таскали ведра с водой для полива всех этих растений. 
 	<a href="https://ru.wikipedia.org/wiki/%D0%92%D0%B8%D1%81%D1%8F%D1%87%D0%B8%D0%B5_%D1%81%D0%B0%D0%B4%D1%8B_%D0%A1%D0%B5%D0%BC%D0%B8%D1%80%D0%B0%D0%BC%D0%B8%D0%B4%D1%8B">(Подробнее)</a> </td>
 	<td align="center">
@@ -66,7 +66,7 @@
 	<td>6</td><td> <a href="https://minecraft.zkir.ru/?worldname=world&mapname=surface&zoom=6&x=-902&y=64&z=339" >Колизей</a> </td>
 	<td> <img src="wonders/colosseus.png" alt="colosseus" width="300px"></img></td>
 	<td style="padding: 10px">
-		Когда-то здесь гладиаторы стражались с друг другом, дикими зверями и с зомби, которых не жалко. Говорят, однажды для развлечения горожан посреди арены
+		Когда-то здесь гладиаторы сражались с друг другом, дикими зверями и с зомби, которых не жалко. Говорят, однажды для развлечения горожан посреди арены
 		было устроено искусственное озеро, чтобы показать морское сражение из нескольких галер. Теперь эта великая руина стоит практически без всякого использования. 		
 		<a href="https://ru.wikipedia.org/w/index.php?go=Перейти&search=колизей&title=Служебная%3AПоиск&ns0=1">(Подробнее)</a> </td>
 	<td align="center">
@@ -77,12 +77,15 @@
 	<td> 7 </td><td> <a href="https://minecraft.zkir.ru/?worldname=world&mapname=surface&zoom=4&x=-3692&y=64&z=-1056" >Уголок самурая</a> </td>
 	<td> <img src="wonders/azuchi_jo.png" alt="azuchi jo"  width="300px"></img> </td>
 	<td style="padding: 10px">
-		Замок Адзути построил сам Ода Набунага на холме высотой 110 м около озера Бива; он находился от столицы на расстоянии 14 ри (сколько бы это ни было).
+		Замок Адзути построил сам Ода Набунага на холме высотой 110 м около озера Бива; он находился от столицы на расстоянии 14 ри (сколько бы это ни было в километрах).
 	     Говорят, в японских замках водятся японские приведения -- бакемоно.
 	<a href="https://ru.wikipedia.org/wiki/%D0%97%D0%B0%D0%BC%D0%BE%D0%BA_%D0%90%D0%B4%D0%B7%D1%83%D1%82%D0%B8" >(Подробнее)</a> </td>
 	<td align="center">
-		<img src="https://minecraft.zkir.ru/tiles/faces/32x32/Hamato_Niji.png"></img> <br />
-		Hamato_Niji </td>
+		<img src="https://minecraft.zkir.ru/tiles/faces/32x32/Hamato_Niji.png"></img> 
+		<img src="https://minecraft.zkir.ru/tiles/faces/32x32/.AngelinaNora179.png"></img> 
+		<br />
+		Hamato_Niji, .AngelinaNora179
+	</td>
 </tr>	
 </table>
 
