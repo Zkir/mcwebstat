@@ -288,7 +288,8 @@ for user in admins:
         player_json["medals"] = medals
         player_json["mined"] = int(user['mined'])
         player_json["used"] = int(user['used'])
-        player_json["advancements"] = int(user['advancements'])
+        player_json["date_last_usage"] = format_unix_time(user['last_played'])
+        
         face_path = "/tiles/faces/32x32/"+str(user['name']) + ".png"
         if os.path.exists(WEB_DIR+face_path):
             player_json["face"] = '<img src="'+face_path+'"><src>'
@@ -300,12 +301,13 @@ for user in admins:
 
         player_json_more["date_register"] = format_unix_time(user['first_played'])
         player_json_more["time_gameplay"] = str(format_time(user['play_time']))
-        player_json_more["date_last_usage"] = format_unix_time(user['last_played'])
+        
         player_json_more["status"] = status 
         player_json_more["discord"] = discord1
         player_json_more["last_ip"] = last_ip
         activity_path = "/activity/"+str(user['uuid']) + ".png"
         player_json_more["activity"] = '<img src="'+activity_path+'"><src>'  
+        player_json_more["advancements"] = int(user['advancements'])
 
         player_json["more"] =[]
         player_json["more"].append(player_json_more)

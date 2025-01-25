@@ -49,11 +49,14 @@
                                 <p-column field="used" header="Использовано" sortable>
                                     <template #body="{ data }"><div v-html="data.used"></div></template>
                                 </p-column>
+								
+								<p-column field="date_last_usage" header="Последнее появление" sortable>
+									<template #body="{ data }"><div v-html="data.date_last_usage"></div></template>
+								</p-column>
 
 								
-								<p-column field="advancements" header="Достижения" sortable>
-                                    <template #body="{ data }"><div v-html="data.advancements"></div></template>
-                                </p-column>
+								
+								
                                 <template #expansion="slotProps">
 
                                     <p-datatable :value="slotProps.data.more">
@@ -63,16 +66,15 @@
                                         <p-column field="time_gameplay" header="Наигранное время">
                                             <template #body="{ data }"><div v-html="data.time_gameplay"></div></template>
                                         </p-column>
-                                        <p-column field="date_last_usage" header="Последнее появление">
-                                            <template #body="{ data }"><div v-html="data.date_last_usage"></div></template>
-                                        </p-column>
+                                
 										
 										<p-column field="status" header="Активность" >
 											<template #body="{ data }"><div v-html="data.activity"></div></template>
                                         </p-column>
-                                        <p-column field="discord" header="Discord" >
-                                            <template #body="{ data }"><div v-html="data.discord"></div></template>
-                                        </p-column>
+										
+										<p-column field="advancements" header="Достижения">
+											<template #body="{ data }"><div v-html="data.advancements"></div></template>
+										</p-column>
 										
 										
                                     </p-datatable>
