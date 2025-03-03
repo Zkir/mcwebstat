@@ -43,11 +43,10 @@
                                     <template #body="{ data }"><div v-html="data.medals"></div></template>
                                 </p-column>
 
-                                <p-column field="mined" header="Добыто" sortable>
-                                    <template #body="{ data }"><div v-html="data.mined"></div></template>
-                                </p-column>
-                                <p-column field="used" header="Использовано" sortable>
-                                    <template #body="{ data }"><div v-html="data.used"></div></template>
+                                
+								
+								<p-column field="time_gameplay" header="Наигранное время" sortable>
+                                    <template #body="{ data }"><div v-html="data.time_gameplay"></div></template>
                                 </p-column>
 								
 								<p-column field="date_last_usage" header="Последнее появление" sortable>
@@ -63,18 +62,21 @@
                                         <p-column field="date_register" header="Первое появление">
                                             <template #body="{ data }"><div v-html="data.date_register"></div></template>
                                         </p-column>
-                                        <p-column field="time_gameplay" header="Наигранное время">
-                                            <template #body="{ data }"><div v-html="data.time_gameplay"></div></template>
-                                        </p-column>
-                                
-										
-										<p-column field="status" header="Активность" >
-											<template #body="{ data }"><div v-html="data.activity"></div></template>
-                                        </p-column>
+                                      
+										<p-column field="mined" header="Добыто" >
+											<template #body="{ data }"><div v-html="data.mined"></div></template>
+										</p-column>
+										<p-column field="used" header="Использовано">
+											<template #body="{ data }"><div v-html="data.used"></div></template>
+										</p-column>
 										
 										<p-column field="advancements" header="Достижения">
 											<template #body="{ data }"><div v-html="data.advancements"></div></template>
 										</p-column>
+										
+										<p-column field="status" header="Активность" >
+											<template #body="{ data }"><div v-html="data.activity"></div></template>
+                                        </p-column>
 										
 										
                                     </p-datatable>
