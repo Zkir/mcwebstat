@@ -64,9 +64,28 @@ def remove_color_tags(s):
     s = s.replace('§c','')
     s = s.replace('§e','')
     s = s.replace('§r','')
+    s = s.replace('§f','')    
     
     return s
- 
+    
+def remove_medals_and_stars(s):
+    s = s.replace('[***]','')    
+    s = s.replace('[**]','')    
+    s = s.replace('[*]','')    
+    s = s.replace('[||]','')    
+    s = s.replace('[|]','')    
+    
+    s = s.replace('✔','')    
+    s = s.replace('✻','')    
+    s = s.replace('Ⓑ','')    
+    s = s.replace('Ⓜ','')    
+    s = s.replace('Ⓥ','')    
+    
+    s = s.replace('ⓑ','')    
+    s = s.replace('❖','')    
+    
+    return s
+
 #just a list of user files
 playerdata_file_list=glob.glob(PLAYER_DATA_DIR+"/*.dat")
 
@@ -364,7 +383,8 @@ for ban in banlist:
 
         ban_json["name"] = ban["name"]
 
-        ban_json["who"]  = remove_color_tags(ban["source"].replace('§','&'))
+        ban_json["who"]  = remove_medals_and_stars (remove_color_tags(ban["source"].replace('&','§')))
+        print("debug",ban_json["who"], ban["source"])
         ban_json["reason"] = ban["reason"]
         ban_json["time"] = ban_end 
         face_path = "/tiles/faces/32x32/"+str(ban['name']) + ".png"
