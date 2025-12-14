@@ -11,7 +11,12 @@ import sqlite3
 from zwebpage import ZWebPage
 
 
-MINECRAFT_DIR = "d:/.Minecraft.1.20-paper_world_n2"
+def get_minecraft_dir():
+    with open('mcwebstat_config.yml', 'r') as f:
+        config = yaml.safe_load(f)
+    return config['MINECRAFT_DIR']
+
+MINECRAFT_DIR = get_minecraft_dir()
 #MINECRAFT_DIR = "d:/.minecraft_server"
 
 WEB_DIR = "d:/_minecraft_site"
@@ -369,6 +374,7 @@ for ban in banlist:
     suffix = ""
     for user in admins: 
         
+        played_time = "0"
         if str(user['uuid']) ==  str(ban['uuid']):
             suffix = str(user['suffix'])
             played_time = str(format_time(user['play_time']))
@@ -384,7 +390,7 @@ for ban in banlist:
         ban_json["name"] = ban["name"]
 
         ban_json["who"]  = remove_medals_and_stars (remove_color_tags(ban["source"].replace('&','§')))
-        print("debug",ban_json["who"], ban["source"])
+        #print("debug:", ban_json["who"], ban["source"])
         ban_json["reason"] = ban["reason"]
         ban_json["time"] = ban_end 
         face_path = "/tiles/faces/32x32/"+str(ban['name']) + ".png"

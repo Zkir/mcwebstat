@@ -2,7 +2,12 @@ import yaml
 from zwebpage import ZWebPage
 import sqlite3
 
-MINECRAFT_DIR = "d:/.Minecraft.1.20-paper_world_n2"
+def get_minecraft_dir():
+    with open('mcwebstat_config.yml', 'r') as f:
+        config = yaml.safe_load(f)
+    return config['MINECRAFT_DIR']
+
+MINECRAFT_DIR = get_minecraft_dir()
 MEDAL_CONFIG_FILE = MINECRAFT_DIR + "/plugins/BlindSniperMC/medals.yml" 
 MEDAL_DB_FILE = MINECRAFT_DIR + "/plugins/BlindSniperMC/medals.db" 
 

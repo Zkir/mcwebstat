@@ -5,7 +5,14 @@ from os import listdir
 from os.path import isfile, join
 import json
 
-MINECRAFT_DIR = "d:/.Minecraft.1.20-paper_world_n2"
+import yaml
+
+def get_minecraft_dir():
+    with open('mcwebstat_config.yml', 'r') as f:
+        config = yaml.safe_load(f)
+    return config['MINECRAFT_DIR']
+
+MINECRAFT_DIR = get_minecraft_dir()
 LOGS_DIR=MINECRAFT_DIR + "/logs"
 BANNEDLIST_FILE = MINECRAFT_DIR + "/banned-ips.json"
 

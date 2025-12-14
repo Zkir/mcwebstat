@@ -22,10 +22,6 @@ def init_globals():
     LOGBLOCK_CFG_FILE = MINECRAFT_DIR + "/plugins/LogBlock/config.yml"    
 
 def read_config():
-    if not os.path.exists(MCWEBSTAT_CFG_FILE):
-        with open(MCWEBSTAT_CFG_FILE, 'w', encoding="utf-8") as f1:
-            f1.write("MINECRAFT_DIR: d:/.Minecraft.1.20-paper_world_n2")
-        
     with open(MCWEBSTAT_CFG_FILE, "r",encoding='utf-8') as stream:
         config = yaml.safe_load(stream)
     
