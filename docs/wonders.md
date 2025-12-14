@@ -74,7 +74,8 @@
 	</td>
 </tr>
 <tr>
-	<td> 7 </td><td> <a href="https://minecraft.zkir.ru/?worldname=world&mapname=surface&zoom=4&x=-3692&y=64&z=-1056" >Уголок самурая</a> </td>
+	<td> 7 </td>
+	<td> <a href="https://minecraft.zkir.ru/?worldname=world&mapname=surface&zoom=4&x=-3692&y=64&z=-1056" >Уголок самурая</a> </td>
 	<td> <img src="wonders/azuchi_jo.png" alt="azuchi jo"  width="300px"></img> </td>
 	<td style="padding: 10px">
 		Замок Адзути построил сам Ода Набунага на холме высотой 110 м около озера Бива; он находился от столицы на расстоянии 14 ри (сколько бы это ни было в километрах).
@@ -87,6 +88,28 @@
 		Hamato_Niji, .AngelinaNora179
 	</td>
 </tr>	
+
+<tr>
+	<td> 8 </td>
+	<td> <a href="https://minecraft.zkir.ru/?worldname=world&mapname=surface&zoom=5&x=715&y=64&z=-840"> Замок Бальга</a> </td>
+	<td> <img src="wonders/balga_castle.png" alt="balga castle"  width="300px"></img> </td>
+	<td> ...  
+		<a href="https://ru.wikipedia.org/wiki/Замок_Бальга" >(Подробнее)</a> </td>
+	</td>
+	<td align="center">
+		<img src="https://minecraft.zkir.ru/tiles/faces/32x32/Igruha.png"> </img> <br />
+		Igruha
+	</td>
+	
+</tr>
+
+
+
 </table>
+
+
+
+
+
 
 
