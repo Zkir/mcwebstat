@@ -17,7 +17,6 @@ def get_minecraft_dir():
     return config['MINECRAFT_DIR']
 
 MINECRAFT_DIR = get_minecraft_dir()
-#MINECRAFT_DIR = "d:/.minecraft_server"
 
 WEB_DIR = "d:/_minecraft_site"
 

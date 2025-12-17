@@ -22,7 +22,7 @@
 	<td> <a href="https://minecraft.zkir.ru/?worldname=world&mapname=surface&zoom=5&x=-334&y=64&z=-4" >Эйфелевая башня</a> </td>
 	<td> <img src="wonders/eifel_tower.png" alt="eifel tower" width="300px"> </img>  </td>
 	<td style="padding: 10px">
-    	Как можно построить параболичекскую форму из прямых балок? Как бы там ни было, это место романтических свиданий и отличный вид на Старый Город.
+    	Как можно построить параболическую форму из прямых балок? Как бы там ни было, это место романтических свиданий и отличный вид на Старый Город.
        	Один поэт сказал, что смотровая площадка на вершине Эйфелевой Башни - это единственное место на сервере, откуда ее не видно.
 		<a href="https://ru.wikipedia.org/wiki/%D0%AD%D0%B9%D1%84%D0%B5%D0%BB%D0%B5%D0%B2%D0%B0_%D0%B1%D0%B0%D1%88%D0%BD%D1%8F" >(Подробнее)</a></td>
 	<td align="center"> KaliopaMili </td>
@@ -93,7 +93,9 @@
 	<td> 8 </td>
 	<td> <a href="https://minecraft.zkir.ru/?worldname=world&mapname=surface&zoom=5&x=715&y=64&z=-840"> Замок Бальга</a> </td>
 	<td> <img src="wonders/balga_castle.png" alt="balga castle"  width="300px"></img> </td>
-	<td> ...  
+	<td  style="padding: 10px"> Замок Бальга — чуть ли не единственный в нашем богоспасемом отечестве готический замок. Его основали  тевтонские рыцари в далеком XIII веке, и его старые кирпичи хранят шепот времен.
+	    Первоначально о был построен на самом берегу Балтийского моря, поэтому не очень понятно, как у нас он оказался на холме. 
+		
 		<a href="https://ru.wikipedia.org/wiki/Замок_Бальга" >(Подробнее)</a> </td>
 	</td>
 	<td align="center">
