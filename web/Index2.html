@@ -308,13 +308,14 @@
 								<p>Играть у нас можно как с копьютера/ноутбука, так и с телефона. </p>   
                                 
                                 <!-- Статус сервера -->
-                                <div id="server-status" class="server-status status-online">
+                                <div id="server-status" class="server-status">
                                     <div class="status-text">
                                         <strong>Статус сервера:</strong> minecraft.zkir.ru
+                                        (<span id="server-version"></span>)
                                     </div>
                                     <div class="status-indicator">
-                                        <span class="status-dot dot-online"></span>
-                                        <span>🟢 Онлайн</span>
+                                        <span class="status-dot"></span>
+                                        <span id="status-label"></span>
                                     </div>
                                 </div>
                                 
@@ -502,27 +503,31 @@
         async function checkServerStatus() {
             const statusElement = document.getElementById('server-status');
             const statusDot = statusElement.querySelector('.status-dot');
-            const statusText = statusElement.querySelector('.status-indicator span:last-child');
+            const statusLabel = document.getElementById('status-label');
+            const serverAddress = document.getElementById('server-address');
+            const serverVersion = document.getElementById('server-version');
             
             try {
-                // В реальности здесь должен быть запрос к API сервера
-                // Это заглушка для демонстрации
-                const isOnline = true; // Замените на реальную проверку
+                const response = await fetch('assets/json/server_status.json');
+                const data = await response.json();
                 
-                if (isOnline) {
+
+                serverVersion.textContent = data.version;
+
+                if (data.online) {
                     statusElement.className = 'server-status status-online';
                     statusDot.className = 'status-dot dot-online';
-                    statusText.textContent = '🟢 Онлайн';
+                    statusLabel.textContent = '🟢 Онлайн';
                 } else {
                     statusElement.className = 'server-status status-offline';
                     statusDot.className = 'status-dot dot-offline';
-                    statusText.textContent = '🔴 Офлайн';
+                    statusLabel.textContent = '🔴 Офлайн';
                 }
             } catch (error) {
                 console.error('Ошибка проверки статуса:', error);
                 statusElement.className = 'server-status status-offline';
                 statusDot.className = 'status-dot dot-offline';
-                statusText.textContent = '❓ Ошибка проверки';
+                statusLabel.textContent = '❓ Ошибка проверки';
             }
         }
         
