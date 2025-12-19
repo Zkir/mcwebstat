@@ -3,7 +3,9 @@ import socket
 import json
 import re
 from pathlib import Path
+#pip install mcstatus
 from mcstatus import JavaServer
+from mcstatus import BedrockServer
 
 # Конфигурация
 SERVER_PORT = 25565
@@ -28,11 +30,6 @@ def get_server_info(host='127.0.0.1', port=25565, timeout=3):
         status = server.status()
         print(f"The server has {status.players.online} player(s) online and replied in {status.latency} ms")
 
-        # 'ping' is supported by all Minecraft servers that are version 1.7 or higher.
-        # It is included in a 'status' call, but is also exposed separate if you do not require the additional info.
-        latency = server.ping()
-        print(f"The server replied in {latency} ms")
-
         # 'query' has to be enabled in a server's server.properties file!
         # It may give more information than a ping, such as a full player list or mod information.
         query = server.query()
@@ -40,6 +37,22 @@ def get_server_info(host='127.0.0.1', port=25565, timeout=3):
     except Exception as e:
         print(f"Ошибка запроса: {e}")
     return None
+    
+def get_bserver_info(host='127.0.0.1', port=19132, timeout=3):
+    """Получает детальную информацию через протокол Minecraft"""
+    try:
+        server = BedrockServer.lookup(host)
+        status = server.status()
+        print(f"The server has {status.players.online} player(s) online and replied in {status.latency} ms")
+
+        # 'query' has to be enabled in a server's server.properties file!
+        # It may give more information than a ping, such as a full player list or mod information.
+        query = server.status()
+        return query
+    except Exception as e:
+        print(f"Ошибка запроса: {e}")
+    return None
+
 
 def get_version_from_properties(properties_path):
     """Извлекает версию из server.properties"""
@@ -84,16 +97,19 @@ def main():
     # Детальная информация
     if is_online:
         info = get_server_info(port=SERVER_PORT)
+        info_bedrock = get_bserver_info()
         if info:
             print("✓ Успешно получены данные:")
             print(f"  Описание: {description}")
-            print(f"  Версия: {info["version"]}")
+            print(f"  Версия Java:    {info["version"]}")
+            print(f"  Версия Bedrock: {info_bedrock.version.name}")
             
             
             # Сохраняем в JSON для веб-сайта
             output = {
                 'online': True,
                 'version': info["version"],
+                'version_bedrock': info_bedrock.version.name,
                 'numplayers': info['numplayers'],
                 'maxplayers': info['maxplayers'],
                 'description': description
@@ -108,7 +124,7 @@ def main():
     else:
         # Сохраняем офлайн статус
         with open(OUTPUT_FILE, 'w') as f:
-            json.dump({'online': False, 'version': '???'}, f, ensure_ascii=False)
+            json.dump({'online': False, 'version': '???', 'version_bedrock':'???'}, f, ensure_ascii=False)
 
 if __name__ == "__main__":
 
