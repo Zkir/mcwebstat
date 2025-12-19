@@ -130,16 +130,71 @@
             border-left: 4px solid #f36413;
         }
         
-        .status-text {
-            font-size: 16px;
+        .server-status {
+            padding: 16px 24px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #f8f9fa;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .status-online {
+            border-left: 5px solid #8dcc83;
+        }
+        
+        .status-offline {
+            border-left: 5px solid #f36413;
+        }
+        
+        .server-info__address {
+            font-size: 18px;
             font-weight: 600;
             color: #1A1A1A;
         }
+
+        .server-info__version {
+            font-size: 16px;
+            font-weight: 500;
+            color: #6c757d;
+            margin-left: 8px;
+        }
         
-        .status-indicator {
+        .server-status-indicator {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+        }
+        
+        .server-status-indicator__dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+        }
+        
+        .dot-online {
+            background-color: #8dcc83;
+        }
+        
+        .dot-offline {
+            background-color: #f36413;
+        }
+
+        .server-status-indicator__label {
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .label-online {
+            color: #8dcc83;
+        }
+
+        .label-offline {
+            color: #f36413;
         }
         
         .status-dot {
@@ -309,13 +364,16 @@
                                 
                                 <!-- Статус сервера -->
                                 <div id="server-status" class="server-status">
-                                    <div class="status-text">
-                                        <strong>Статус сервера:</strong> minecraft.zkir.ru
-                                        (<span id="server-version"></span>)
+                                    <div class="server-info">
+                                        <span class="server-info__address">minecraft.zkir.ru</span>
+                                        <div class="server-info__versions">
+                                            <span class="version-tag java">JAVA: <span id="java-version"></span></span>
+                                            <span class="version-tag bedrock">BEDROCK: <span id="bedrock-version"></span></span>
+                                        </div>
                                     </div>
-                                    <div class="status-indicator">
-                                        <span class="status-dot"></span>
-                                        <span id="status-label"></span>
+                                    <div class="server-status-indicator">
+                                        <span class="server-status-indicator__dot"></span>
+                                        <span class="server-status-indicator__label" id="status-label"></span>
                                     </div>
                                 </div>
                                 
@@ -502,32 +560,35 @@
         // Функция для проверки статуса сервера
         async function checkServerStatus() {
             const statusElement = document.getElementById('server-status');
-            const statusDot = statusElement.querySelector('.status-dot');
+            const statusDot = statusElement.querySelector('.server-status-indicator__dot');
             const statusLabel = document.getElementById('status-label');
-            const serverAddress = document.getElementById('server-address');
-            const serverVersion = document.getElementById('server-version');
+            const javaVersion = document.getElementById('java-version');
+            const bedrockVersion = document.getElementById('bedrock-version');
             
             try {
                 const response = await fetch('assets/json/server_status.json');
                 const data = await response.json();
                 
-
-                serverVersion.textContent = data.version;
+                javaVersion.textContent = data.version;
+                bedrockVersion.textContent = data.version_bedrock;
 
                 if (data.online) {
                     statusElement.className = 'server-status status-online';
-                    statusDot.className = 'status-dot dot-online';
-                    statusLabel.textContent = '🟢 Онлайн';
+                    statusDot.className = 'server-status-indicator__dot dot-online';
+                    statusLabel.className = 'server-status-indicator__label label-online';
+                    statusLabel.textContent = 'Онлайн';
                 } else {
                     statusElement.className = 'server-status status-offline';
-                    statusDot.className = 'status-dot dot-offline';
-                    statusLabel.textContent = '🔴 Офлайн';
+                    statusDot.className = 'server-status-indicator__dot dot-offline';
+                    statusLabel.className = 'server-status-indicator__label label-offline';
+                    statusLabel.textContent = 'Офлайн';
                 }
             } catch (error) {
                 console.error('Ошибка проверки статуса:', error);
                 statusElement.className = 'server-status status-offline';
-                statusDot.className = 'status-dot dot-offline';
-                statusLabel.textContent = '❓ Ошибка проверки';
+                statusDot.className = 'server-status-indicator__dot dot-offline';
+                statusLabel.className = 'server-status-indicator__label label-offline';
+                statusLabel.textContent = 'Ошибка';
             }
         }
         
