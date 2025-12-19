@@ -40,10 +40,22 @@
   font-family: "Montserrat", sans-serif;
 }
 
+.header .container{
+	background-color: #f3f3f3; 
+	border-bottom-left-radius: 32px; 
+	border-bottom-right-radius: 32px; 
+	overflow: hidden;	
+	margin-bottom: 15px;
+}
+
 .header__wrapper {
+  
   height: 120px;
   display: flex;
   align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  
 }
 .header__name-mobile, .header__btn-mobile {
   display: none;
@@ -52,6 +64,7 @@
   display: flex;
   align-items: center;
   gap: 48px;
+  
 }
 .header__menu-item {
   padding: 12px 16px;
@@ -277,9 +290,9 @@
 }
 body {
   /*background-color: #f3f3f3; */
-  background-image: url('assets/images/background-map.png'); 
-  background-size: cover;
-  background-position: center;  
+  background-image: url('../../assets/images/background-map.jpg'); 
+  /*background-size: cover;*/
+  background-position: top;  
 }
 
 .layout {
@@ -566,3 +579,5 @@ body {
 }
 
 /*# sourceMappingURL=main.css.map */
+
+
