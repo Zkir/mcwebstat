@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Добрый король и весёлые сыроежки - Главная</title>
+    
+    <link rel="shortcut icon" href="https://minecraft.zkir.ru/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="assets/styles/main.css">
+    
+    <style>
+        /* Дополнительные стили для главной страницы */
+        .home-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 32px;
+            margin: 32px 0 48px;
+        }
+        
+        .home-card {
+            padding: 32px;
+            background-color: #fff;
+            border-radius: 24px;
+            box-shadow: rgba(26, 26, 26, 0.08) 0px 8px 24px;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .home-card:hover {
+            transform: translateY(-8px);
+            box-shadow: rgba(26, 26, 26, 0.15) 0px 12px 32px;
+        }
+		
+		.map-card {
+			grid-column: span 2;
+		}
+        
+        .card-icon {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 24px;
+            background-color: #f0f0f0;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+        
+        .card-title {
+            margin-bottom: 16px;
+            font-size: 20px;
+            font-weight: 600;
+            color: #1A1A1A;
+        }
+        
+        .card-content {
+            flex-grow: 1;
+            margin-bottom: 24px;
+        }
+        
+        .card-content p {
+            margin: 12px 0;
+            font-size: 16px;
+            font-weight: 500;
+            color: #1A1A1A;
+            line-height: 140%;
+        }
+        
+        .card-content ul {
+            list-style-type: none;
+            margin: 16px 0;
+        }
+        
+        .card-content li {
+            margin-bottom: 8px;
+            padding-left: 24px;
+            position: relative;
+            font-size: 16px;
+            font-weight: 500;
+            color: #1A1A1A;
+            line-height: 140%;
+        }
+        
+        .card-content li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #5a4df9;
+            font-weight: bold;
+        }
+        
+        .card-link {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            background-color: #f36413;
+            border-radius: 12px;
+            text-transform: uppercase;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .card-link:hover {
+            background-color: #e0550c;
+            transform: scale(1.05);
+        }
+        
+        .server-status {
+            padding: 16px 24px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .status-online {
+            background-color: rgba(141, 204, 131, 0.2);
+            border-left: 4px solid #8dcc83;
+        }
+        
+        .status-offline {
+            background-color: rgba(243, 100, 19, 0.1);
+            border-left: 4px solid #f36413;
+        }
+        
+        .status-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A1A1A;
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .dot-online {
+            background-color: #8dcc83;
+        }
+        
+        .dot-offline {
+            background-color: #f36413;
+        }
+        
+        .server-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+        
+        .info-item {
+            padding: 12px;
+            background-color: #f8f9fa;
+            border-radius: 12px;
+        }
+        
+        .info-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: #666;
+            margin-bottom: 4px;
+        }
+        
+        .info-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A1A1A;
+        }
+        
+        /* Адаптивность */
+        @media screen and (max-width: 900px) {
+            .home-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            
+            .home-card {
+                padding: 24px;
+            }
+			
+			.map-card {
+				grid-column: span 1;
+			}
+            
+            .card-icon {
+                width: 48px;
+                height: 48px;
+                font-size: 20px;
+            }
+            
+            .card-title {
+                font-size: 18px;
+            }
+            
+            .card-content p,
+            .card-content li {
+                font-size: 14px;
+            }
+            
+            .server-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="layout">
+            <div class="layout-group">
+                <!-- Шапка сайта -->
+                <header class="header">
+                    <div class="container">
+                        <div class="header__wrapper">
+                            <span class="header__name-mobile">Добрый король и<br>весёлые сыроежки</span>
+                            <button class="header__btn-mobile"></button>
+                            <nav class="header__menu">
+                                <a href="https://minecraft.zkir.ru/" target="" class="header__menu-item header__menu-item_active">
+                                    <span class="header__menu-item-icon">
+                                        <svg width="24px" height="24px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <g id="Dribbble-Light-Preview" transform="translate(-420.000000, -6319.000000)" fill="currentColor">
+                                                    <g id="icons" transform="translate(56.000000, 160.000000)">
+                                                        <path d="M376,6169 L380,6169 L380,6165 L376,6165 L376,6169 Z M368,6169 L372,6169 L372,6165 L368,6165 L368,6169 Z M382,6177 L378,6177 L378,6171 L376,6171 L376,6169 L372,6169 L372,6171 L370,6171 L370,6177 L366,6177 L366,6161 L382,6161 L382,6177 Z M372,6177 L376,6177 L376,6175 L372,6175 L372,6177 Z M364,6179 L384,6179 L384,6159 L364,6159 L364,6179 Z" id="emoji_minecraft_square-[#409]"></path>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    Главная
+                                </a>
+								 <a href="https://minecraft.zkir.ru/wonders.html" target="" class="header__menu-item">
+                                    <span class="header__menu-item-icon">
+                                        <svg width="24px" height="24px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                            <!-- Иконка правил -->
+                                        </svg>
+                                    </span>
+                                    Чудеса
+                                </a>
+                                <a href="https://minecraft.zkir.ru/rules.html" target="" class="header__menu-item">
+                                    <span class="header__menu-item-icon">
+                                        <svg width="24px" height="24px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                            <!-- Иконка правил -->
+                                        </svg>
+                                    </span>
+                                    Правила
+                                </a>
+                                <a href="https://minecraft.zkir.ru/players.html" target="" class="header__menu-item">
+                                    <span class="header__menu-item-icon">
+                                        <svg width="24px" height="24px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                            <!-- Иконка игроков -->
+                                        </svg>
+                                    </span>
+                                    Игроки
+                                </a>
+                                <a href="https://minecraft.zkir.ru/bans.html" target="" class="header__menu-item">
+                                    <span class="header__menu-item-icon">
+                                        <svg width="24px" height="24px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                            <!-- Иконка банов -->
+                                        </svg>
+                                    </span>
+                                    Баны
+                                </a>
+                                <a href="https://minecraft.zkir.ru/sitemap.html" target="" class="header__menu-item">
+                                    <span class="header__menu-item-icon">
+                                        <svg width="24px" height="24px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                            <!-- Иконка документов -->
+                                        </svg>
+                                    </span>
+                                    Библиотека
+                                </a>
+                                <a href="http://t.me/OTRYAD_GODZILLA" target="_blank" class="header__menu-item">
+                                    <span class="header__menu-item-icon">
+                                        <svg width="24px" height="24px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                            <!-- Иконка доната -->
+                                        </svg>
+                                    </span>
+                                    Телеграм
+                                </a>
+								 
+                            </nav>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Основной контент -->
+                <main class="content">
+                    <section class="container">
+                        <div class="content__inner">
+                            <div class="content__block">
+                                <h1>Добро пожаловать в королевство!</h1>
+                                <p>Хотите играть с друзьями, но устали от лунных ландшафтов и бесконечных обнулений мира? Хотите компанию живых игроков, но не хотите играть с гриферами?
+								   Если так, то у нас вам должно понравиться. Строительство, квесты и веселая компания -- это то, что мы хотим вам предложить!</p>
+								<p>Играть у нас можно как с копьютера/ноутбука, так и с телефона. </p>   
+                                
+                                <!-- Статус сервера -->
+                                <div id="server-status" class="server-status status-online">
+                                    <div class="status-text">
+                                        <strong>Статус сервера:</strong> minecraft.zkir.ru
+                                    </div>
+                                    <div class="status-indicator">
+                                        <span class="status-dot dot-online"></span>
+                                        <span>🟢 Онлайн</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Карточки -->
+                                <div class="home-grid">
+								    <!-- Как присоединиться -->
+                                    <div class="home-card">
+                                        <div class="card-icon">🎮</div>
+                                        <h2 class="card-title">Как присоединиться</h2>
+                                        <div class="card-content">
+                                            <p>Попасть на наш сервер не просто, а очень просто. Для этого есть целых два способа: </p>
+											<p><b>Способ 1</b></p>
+                                            <ul>
+                                                <li>Быть подписчиком канала "Слепой Снайпер" в Likee</li>
+												<li>Прочитать <a href="rules.html">правила</a>, они очень простые</li>
+                                                <li>Придти на стрим и принести клятву верности королевству</li>
+                                            </ul>
+											<p><b>Способ 2</b></p>
+											<ul>
+                                                <li>Попросить кого-то из опытных игроков в телеграм добавить вас на сервер.</li>
+												<li>Прочитать <a href="rules.html">правила</a>, они очень простые</li>
+                                                <li>Произнести клятву верности королевству</li>
+												<li>Опытные игроки люди добрые, и обычно быстро добавляют новичков</li>
+                                            </ul>
+                                            <p>Ждем вас у нас в мире!</p>
+                                        </div>
+                                        <a href="https://likee.video/@406335458" class="card-link" target="_blank">Канал в Likee</a>
+                                    </div>
+								
+                                    
+                                    
+                                    <!-- Правила сервера -->
+									<!--
+                                    <div class="home-card">
+                                        <div class="card-icon">📜</div>
+                                        <h2 class="card-title">Правила сервера</h2>
+                                        <div class="card-content">
+                                            <p>Чтобы поддерживать порядок в королевстве, все игроки должны соблюдать правила:</p>
+                                            <ul>
+                                                <li>Деятельность должна быть на благо королевства</li>
+                                                <li>Дома должны быть подписаны табличкой</li>
+                                                <li>Нельзя строить открытые шахты</li>
+                                                <li>Вырубленные деревья нужно сажать заново</li>
+                                                <li>ПВП только на арене</li>
+                                            </ul>
+                                            <div class="content__command">
+                                                <p>Клянусь соблюдать правила сервера, вести себя прилично, и во всем слушаться короля Кирилла.</p>
+                                            </div>
+                                        </div>
+                                        <a href="https://minecraft.zkir.ru/rules.html" class="card-link">Все правила</a>
+                                    </div>
+									-->
+									
+									<!-- Документация -->
+                                    <div class="home-card">
+                                        <div class="card-icon">📚</div>
+                                        <h2 class="card-title">Библиотека</h2>
+                                        <div class="card-content">
+                                            <p>В нашей библиотеке вы найдете всю необходимую информацию:</p>
+                                            <ul class="list-style-sword">
+											    <li>Правила сервера</li>
+                                                <li>Руководство по модерации</li>
+                                                <li>Справочник по командам модерации</li>
+                                                <li>Чудеса нашего мира</li>
+                                                <li>Награды сервера</li>
+                                            </ul>
+                                            <p>Изучите документы, чтобы лучше понять особенности сервера.</p>
+                                        </div>
+                                        <a href="https://minecraft.zkir.ru/sitemap.html" class="card-link">Открыть</a>
+                                    </div>
+                                    
+                                   
+                                    
+                                    <!-- Поддержка сервера -->
+									
+                                    <div class="home-card">
+                                        <div class="card-icon">❤️</div>
+                                        <h2 class="card-title">Поддержать сервер</h2>
+                                        <div class="card-content">
+                                            <p>Наш сервер существует исключительно на энтузиазме и вашей поддержке. Любое пожертвование помогает развивать проект:</p>
+                                            <ul>
+                                                <li>Улучшать производительность сервера</li>
+                                                <li>Добавлять новые плагины и возможности</li>
+                                                <li>Организовывать интересные ивенты</li>
+                                                <li>Поддерживать работоспособность 24/7</li>
+                                            </ul>
+                                            <p>Все средства идут исключительно на развитие сервера!</p>
+                                        </div>
+                                        <a href="https://minecraft.zkir.ru/donate.html" class="card-link">Поддержать</a>
+                                    </div>
+									
+                                    
+                                    
+                                    
+                                    <!-- Сообщество -->
+                                    <div class="home-card">
+                                        <div class="card-icon">👥</div>
+                                        <h2 class="card-title">Наше сообщество</h2>
+                                        <div class="card-content">
+                                            <p>Присоединяйтесь к нашему сообществу вне игры:</p>
+                                            <ul>
+                                                <li>Telegram-канал с анонсами</li>
+                                                <li>Общение с другими игроками</li>
+                                                <li>Участие в голосованиях</li>
+                                                <li>Обсуждение нововведений</li>
+                                                <li>Помощь новичкам</li>
+                                            </ul>
+                                            <p>Будьте в курсе всех событий сервера и общайтесь с другими игроками!</p>
+                                        </div>
+                                        <a href="http://t.me/OTRYAD_GODZILLA" class="card-link" target="_blank">Telegram</a>
+                                    </div>
+									
+									<!-- Карта мира -->
+									
+                                    <div class="home-card map-card">
+                                        <div class="card-icon">🗺️</div>
+                                        <h2 class="card-title">Карта мира</h2>
+                                        <div class="card-content">
+                                            <p>Хотите похвастаться своими постройками перед своими друзьями? Хотите посмотреть, что на сервере есть интересного?</p>
+											<p>У нас есть онлайн-карта, почти как гуглокарта рельного мира! Она обновляется в реальном времени и доступна для всех игроков.</p>
+											<div class="map-preview" style="margin-top: 20px; height: 300px; background: #f0f0f0; border-radius: 12px; overflow: hidden;">
+												<!-- Здесь будет iframe или изображение карты -->
+												<img src="assets/images/map-preview.jpg" alt="Превью карты" style="width: 100%; height: 100%; object-fit: cover;">
+											</div>
+                                        </div>
+                                        <a href="https://minecraft.zkir.ru/map.html" class="card-link" target="_blank">Открыть карту</a>
+                                    </div>
+									
+                                </div>
+                                
+                                <!-- Быстрые ссылки -->
+                                <h2>Быстрые ссылки</h2>
+                                <div style="display: flex; flex-wrap: wrap; gap: 16px; margin: 24px 0;">
+                                    <a href="https://minecraft.zkir.ru/players.html" style="padding: 8px 16px; background-color: #f0f0f0; border-radius: 12px; color: #1A1A1A; font-weight: 500; font-size: 14px;">📊 Список игроков</a>
+                                    <a href="https://minecraft.zkir.ru/bans.html" style="padding: 8px 16px; background-color: #f0f0f0; border-radius: 12px; color: #1A1A1A; font-weight: 500; font-size: 14px;">🚫 Активные баны</a>
+                                    <a href="https://minecraft.zkir.ru/medals.html" style="padding: 8px 16px; background-color: #f0f0f0; border-radius: 12px; color: #1A1A1A; font-weight: 500; font-size: 14px;">🏆 Награды сервера</a>
+                                    <a href="https://minecraft.zkir.ru/wonders.html" style="padding: 8px 16px; background-color: #f0f0f0; border-radius: 12px; color: #1A1A1A; font-weight: 500; font-size: 14px;">✨ Чудеса мира</a>
+                                </div>
+                            </div>
+                            
+                            <div class="content__block">
+                                <div class="content__updated">Страница создана 2025-12-16 14:18:25</div>
+                            </div>
+                        </div>
+                    </section>
+                </main>
+                
+                <!-- Подвал -->
+                <footer class="footer">
+                    <div class="container">
+                        <div class="footer__wrapper">
+                            <div class="footer__col">
+                                <img src="https://minecraft.zkir.ru/logo.png" alt="" class="footer__logo">
+                            </div>
+                            <div class="footer__col">
+                                <span class="footer__info footer__text">Данный проект является некоммерческим и не связан с Mojang AB.</span>
+                                <span class="footer__copyright footer__text">© 2024-25 Добрый король и веселые сыроежки.<br>Все права защищены.</span>
+                            </div>
+                            <div class="footer__col">
+                                <nav class="footer__menu">
+                                    <a href="https://minecraft.zkir.ru/" class="footer__menu-item">Карта Мира</a>
+                                    <a href="https://minecraft.zkir.ru/rules.html" class="footer__menu-item">Правила</a>
+                                    <a href="https://minecraft.zkir.ru/players.html" class="footer__menu-item">Игроки</a>
+                                    <a href="https://minecraft.zkir.ru/bans.html" class="footer__menu-item">Баны</a>
+                                    <a href="https://minecraft.zkir.ru/sitemap.html" class="footer__menu-item">Оглавление сайта</a>
+                                </nav>
+                            </div>
+                            <div class="footer__col">
+                                <div class="footer__social">
+                                    <a href="http://t.me/OTRYAD_GODZILLA" target="_blank" class="footer__social-item">
+                                        <i class="pi pi-discord"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript для статуса сервера (упрощенный вариант) -->
+    <script>
+        // Функция для проверки статуса сервера
+        async function checkServerStatus() {
+            const statusElement = document.getElementById('server-status');
+            const statusDot = statusElement.querySelector('.status-dot');
+            const statusText = statusElement.querySelector('.status-indicator span:last-child');
+            
+            try {
+                // В реальности здесь должен быть запрос к API сервера
+                // Это заглушка для демонстрации
+                const isOnline = true; // Замените на реальную проверку
+                
+                if (isOnline) {
+                    statusElement.className = 'server-status status-online';
+                    statusDot.className = 'status-dot dot-online';
+                    statusText.textContent = '🟢 Онлайн';
+                } else {
+                    statusElement.className = 'server-status status-offline';
+                    statusDot.className = 'status-dot dot-offline';
+                    statusText.textContent = '🔴 Офлайн';
+                }
+            } catch (error) {
+                console.error('Ошибка проверки статуса:', error);
+                statusElement.className = 'server-status status-offline';
+                statusDot.className = 'status-dot dot-offline';
+                statusText.textContent = '❓ Ошибка проверки';
+            }
+        }
+        
+        // Проверяем статус при загрузке страницы
+        document.addEventListener('DOMContentLoaded', checkServerStatus);
+        
+        // Проверяем каждые 30 секунд
+        setInterval(checkServerStatus, 30000);
+        
+        // JavaScript для мобильного меню
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileBtn = document.querySelector('.header__btn-mobile');
+            const menu = document.querySelector('.header__menu');
+            
+            if (mobileBtn) {
+                mobileBtn.addEventListener('click', function() {
+                    this.classList.toggle('header__btn-mobile_active');
+                    menu.classList.toggle('header__menu_active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
