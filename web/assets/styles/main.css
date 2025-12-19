@@ -42,9 +42,8 @@
 
 .header .container{
 	background-color: #f3f3f3; 
-	border-bottom-left-radius: 32px; 
-	border-bottom-right-radius: 32px; 
-	overflow: hidden;	
+	border-bottom-left-radius: 24px; 
+	border-bottom-right-radius: 24px; 
 	margin-bottom: 15px;
 }
 
