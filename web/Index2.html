@@ -41,21 +41,30 @@
         .card-icon {
             width: 64px;
             height: 64px;
-            margin-bottom: 24px;
             background-color: #f0f0f0;
             border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 28px;
+            flex-shrink: 0; /* Prevent icon from shrinking */
         }
         
         .card-title {
-            margin-bottom: 16px;
+            margin-bottom: 0; /* Remove bottom margin */
             font-size: 20px;
             font-weight: 600;
             color: #1A1A1A;
+            flex-grow: 1; /* Allow title to take available space */
         }
+
+        .card-title-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 16px; /* Space between icon and title */
+            margin-bottom: 16px; /* Add some space below the title wrapper */
+        }
+
         
         .card-content {
             flex-grow: 1;
@@ -93,7 +102,7 @@
             font-weight: bold;
         }
         
-        .card-link {
+        .content .card-link {
             display: inline-block;
             padding: 12px 24px;
             font-size: 14px;
@@ -241,12 +250,14 @@
         @media screen and (max-width: 900px) {
             .home-grid {
                 grid-template-columns: 1fr;
-                gap: 12px;
+                gap: 34px;
             }
             
             .home-card {
                 padding: 0px;
-				margin:  0px;
+				margin:   0px;
+				
+				
 				box-shadow: none;
             }
 			.home-card:hover {
@@ -387,8 +398,10 @@
                                 <div class="home-grid">
 								    <!-- Как присоединиться -->
                                     <div class="home-card">
-                                        <div class="card-icon">🎮</div>
-                                        <h2 class="card-title">Как присоединиться</h2>
+                                        <div class="card-title-wrapper">
+                                            <div class="card-icon">🎮</div>
+                                            <h2 class="card-title">Как присоединиться</h2>
+                                        </div>
                                         <div class="card-content">
                                             <p>Попасть на наш сервер не просто, а очень просто. Для этого есть целых два способа: </p>
 											<p><b>Способ 1</b></p>
@@ -435,8 +448,10 @@
 									
 									<!-- Документация -->
                                     <div class="home-card">
-                                        <div class="card-icon">📚</div>
-                                        <h2 class="card-title">Библиотека</h2>
+                                        <div class="card-title-wrapper">
+                                            <div class="card-icon">📚</div>
+                                            <h2 class="card-title">Библиотека</h2>
+                                        </div>
                                         <div class="card-content">
                                             <p>В нашей библиотеке вы найдете всю необходимую информацию:</p>
                                             <ul class="list-style-sword">
@@ -456,8 +471,10 @@
                                     <!-- Поддержка сервера -->
 									
                                     <div class="home-card">
-                                        <div class="card-icon">❤️</div>
-                                        <h2 class="card-title">Поддержать сервер</h2>
+                                        <div class="card-title-wrapper">
+                                            <div class="card-icon">❤️</div>
+                                            <h2 class="card-title">Поддержать сервер</h2>
+                                        </div>
                                         <div class="card-content">
                                             <p>Наш сервер существует исключительно на энтузиазме и вашей поддержке. Любое пожертвование помогает развивать проект:</p>
                                             <ul>
@@ -476,8 +493,10 @@
                                     
                                     <!-- Сообщество -->
                                     <div class="home-card">
-                                        <div class="card-icon">👥</div>
-                                        <h2 class="card-title">Наше сообщество</h2>
+                                        <div class="card-title-wrapper">
+                                            <div class="card-icon">👥</div>
+                                            <h2 class="card-title">Наше сообщество</h2>
+                                        </div>
                                         <div class="card-content">
                                             <p>Присоединяйтесь к нашему сообществу вне игры:</p>
                                             <ul>
@@ -495,8 +514,10 @@
 									<!-- Карта мира -->
 									
                                     <div class="home-card map-card">
-                                        <div class="card-icon">🗺️</div>
-                                        <h2 class="card-title">Карта мира</h2>
+                                        <div class="card-title-wrapper">
+                                            <div class="card-icon">🗺️</div>
+                                            <h2 class="card-title">Карта мира</h2>
+                                        </div>
                                         <div class="card-content">
                                             <p>Хотите похвастаться своими постройками перед своими друзьями? Хотите посмотреть, что на сервере есть интересного?</p>
 											<p>У нас есть онлайн-карта, почти как гуглокарта рельного мира! Она обновляется в реальном времени и доступна для всех игроков.</p>
