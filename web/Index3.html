@@ -8,6 +8,7 @@
     
     <link rel="shortcut icon" href="https://minecraft.zkir.ru/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="assets/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/primeicons/7.0.0/primeicons.min.css">
     
     <style>
         /* Дополнительные стили для главной страницы */
@@ -33,10 +34,10 @@
             transform: translateY(-8px);
             box-shadow: rgba(26, 26, 26, 0.15) 0px 12px 32px;
         }
-		
-		.map-card {
-			grid-column: span 2;
-		}
+        
+        .map-card {
+            grid-column: span 2;
+        }
         
         .card-icon {
             width: 64px;
@@ -59,7 +60,7 @@
         
         .card-content {
             flex-grow: 1;
-            margin-bottom: 4px;
+            margin-bottom: 24px;
         }
         
         .card-content p {
@@ -111,152 +112,264 @@
             transform: scale(1.05);
         }
         
-        .server-status {
-            padding: 16px 24px;
-            border-radius: 16px;
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        /* Стили для блока статуса сервера */
+        .server-status-section {
+            margin: 40px 0;
         }
         
-        .status-online {
-            background-color: rgba(141, 204, 131, 0.2);
-            border-left: 4px solid #8dcc83;
-        }
-        
-        .status-offline {
-            background-color: rgba(243, 100, 19, 0.1);
-            border-left: 4px solid #f36413;
-        }
-        
-        .server-status {
-            padding: 16px 24px;
-            border-radius: 12px;
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background-color: #f8f9fa;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        .server-status-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 249, 250, 0.95) 100%);
+            border-radius: 24px;
+            box-shadow: rgba(26, 26, 26, 0.1) 0px 8px 32px;
+            padding: 32px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
             transition: all 0.3s ease;
         }
         
-        .status-online {
-            border-left: 5px solid #8dcc83;
+        .server-status-card:hover {
+            box-shadow: rgba(26, 26, 26, 0.15) 0px 12px 40px;
         }
         
-        .status-offline {
-            border-left: 5px solid #f36413;
+        .server-status-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            transition: all 0.3s ease;
         }
         
-        .server-info__address {
-            font-size: 18px;
-            font-weight: 600;
+        .status-online .server-status-card::before {
+            background: linear-gradient(to bottom, #8dcc83, #4caf50);
+        }
+        
+        .status-offline .server-status-card::before {
+            background: linear-gradient(to bottom, #f36413, #ff5722);
+        }
+        
+        .server-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+        
+        .server-icon {
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, #f36413 0%, #ff8a3d 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+            box-shadow: 0 6px 20px rgba(243, 100, 19, 0.3);
+        }
+        
+        .server-info-main {
+            flex: 1;
+        }
+        
+        .server-name {
+            font-size: 28px;
+            font-weight: 700;
             color: #1A1A1A;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
-
-        .server-info__version {
-            font-size: 16px;
-            font-weight: 500;
-            color: #6c757d;
-            margin-left: 8px;
+        
+        .server-address {
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 18px;
+            color: #666;
+            background: rgba(0, 0, 0, 0.03);
+            padding: 8px 16px;
+            border-radius: 12px;
+            display: inline-block;
         }
         
         .server-status-indicator {
             display: flex;
             align-items: center;
-            gap: 10px;
-        }
-        
-        .server-status-indicator__dot {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-        }
-        
-        .dot-online {
-            background-color: #8dcc83;
-        }
-        
-        .dot-offline {
-            background-color: #f36413;
-        }
-
-        .server-status-indicator__label {
-            font-size: 16px;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-        
-        .label-online {
-            color: #8dcc83;
-        }
-
-        .label-offline {
-            color: #f36413;
+            gap: 16px;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
         
         .status-dot {
-            width: 12px;
-            height: 12px;
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
+            position: relative;
         }
         
-        .dot-online {
-            background-color: #8dcc83;
+        .status-dot.online {
+            background: linear-gradient(135deg, #8dcc83, #4caf50);
+            box-shadow: 0 0 0 4px rgba(141, 204, 131, 0.2);
+            animation: pulse 2s infinite;
         }
         
-        .dot-offline {
-            background-color: #f36413;
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(141, 204, 131, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(141, 204, 131, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(141, 204, 131, 0);
+            }
         }
         
-        .server-info {
+        .status-dot.offline {
+            background: linear-gradient(135deg, #f36413, #ff5722);
+            box-shadow: 0 0 0 4px rgba(243, 100, 19, 0.2);
+        }
+        
+        .status-label {
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .status-label.online {
+            color: #4caf50;
+        }
+        
+        .status-label.offline {
+            color: #ff5722;
+        }
+        
+        .server-details {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-            margin-top: 16px;
+            gap: 24px;
+            margin-top: 24px;
         }
         
-        .info-item {
-            padding: 12px;
-            background-color: #f8f9fa;
+        .detail-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .detail-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+        
+        .detail-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(243, 100, 19, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #f36413;
+            margin-bottom: 16px;
+        }
+        
+        .detail-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        
+        .detail-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1A1A1A;
+        }
+        
+        .detail-value.version {
+            font-family: 'Monaco', 'Courier New', monospace;
+        }
+        
+        .version-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .version-badge.java {
+            background: rgba(90, 77, 249, 0.1);
+            color: #5a4df9;
+        }
+        
+        .version-badge.bedrock {
+            background: rgba(243, 100, 19, 0.1);
+            color: #f36413;
+        }
+        
+        .server-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.02);
             border-radius: 12px;
         }
         
-        .info-label {
-            font-size: 12px;
-            font-weight: 500;
-            color: #666;
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1A1A1A;
             margin-bottom: 4px;
         }
         
-        .info-value {
-            font-size: 16px;
+        .stat-label {
+            font-size: 12px;
             font-weight: 600;
-            color: #1A1A1A;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
+        
+        
         
         /* Адаптивность */
         @media screen and (max-width: 900px) {
             .home-grid {
                 grid-template-columns: 1fr;
-                gap: 12px;
+                gap: 24px;
             }
             
             .home-card {
-                padding: 0px;
-				margin:  0px;
-				box-shadow: none;
+                padding: 24px;
             }
-			.home-card:hover {
-				box-shadow: none;
-				transform: none;
-			}
-			
-			.map-card {
-				grid-column: span 1;
-			}
+            
+            .map-card {
+                grid-column: span 1;
+            }
             
             .card-icon {
                 width: 48px;
@@ -273,9 +386,81 @@
                 font-size: 14px;
             }
             
-            .server-info {
+            /* Адаптивность для блока статуса */
+            .server-status-card {
+                padding: 24px;
+            }
+            
+            .server-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 16px;
+            }
+            
+            .server-name {
+                font-size: 24px;
+                justify-content: center;
+            }
+            
+            .server-address {
+                font-size: 16px;
+            }
+            
+            .server-status-indicator {
+                justify-content: center;
+            }
+            
+            .server-details {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .server-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .server-name {
+                font-size: 20px;
+            }
+            
+            .server-address {
+                font-size: 14px;
+            }
+            
+            .server-stats {
                 grid-template-columns: 1fr;
             }
+            
+            .status-label {
+                font-size: 16px;
+            }
+        }
+        
+        .quick-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin: 24px 0;
+        }
+        
+        .quick-link {
+            padding: 12px 20px;
+            background-color: #f0f0f0;
+            border-radius: 12px;
+            color: #1A1A1A;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .quick-link:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-2px);
         }
     </style>
 </head>
@@ -304,7 +489,7 @@
                                     </span>
                                     Главная
                                 </a>
-								 <a href="https://minecraft.zkir.ru/wonders.html" target="" class="header__menu-item">
+                                 <a href="https://minecraft.zkir.ru/wonders.html" target="" class="header__menu-item">
                                     <span class="header__menu-item-icon">
                                         <svg width="24px" height="24px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg">
                                             <!-- Иконка правил -->
@@ -352,7 +537,7 @@
                                     </span>
                                     Телеграм
                                 </a>
-								 
+                                 
                             </nav>
                         </div>
                     </div>
@@ -365,82 +550,91 @@
                             <div class="content__block">
                                 <h1>Добро пожаловать в королевство!</h1>
                                 <p>Хотите играть с друзьями, но устали от лунных ландшафтов и бесконечных обнулений мира? Хотите компанию живых игроков, но не хотите играть с гриферами?
-								   Если так, то у нас вам должно понравиться. Строительство, квесты и веселая компания -- это то, что мы хотим вам предложить!</p>
-								<p>Играть у нас можно как с копьютера/ноутбука, так и с телефона. </p>   
+                                   Если так, то у нас вам должно понравиться. Строительство, квесты и веселая компания -- это то, что мы хотим вам предложить!</p>
+                                <p>Играть у нас можно как с компьютера/ноутбука, так и с телефона.</p>
                                 
-                                <!-- Статус сервера -->
-                                <div id="server-status" class="server-status">
-                                    <div class="server-info">
-                                        <span class="server-info__address">minecraft.zkir.ru</span>
-                                        <div class="server-info__versions">
-                                            <span class="version-tag java">JAVA: <span id="java-version"></span></span>
-                                            <span class="version-tag bedrock">BEDROCK: <span id="bedrock-version"></span></span>
+                                <!-- Блок статуса сервера -->
+                                <div class="server-status-section" id="server-status-section">
+                                    <div class="server-status-card">
+                                        <div class="server-header">
+                                            <div class="server-icon">⚡</div>
+                                            <div class="server-info-main">
+                                                <div class="server-name">
+                                                    Сервер "Добрый король и весёлые сыроежки"
+                                                    <div class="server-address" id="server-address">minecraft.zkir.ru</div>
+                                                </div>
+                                            </div>
+                                            <div class="server-status-indicator" id="status-indicator">
+                                                <div class="status-dot" id="status-dot"></div>
+                                                <div class="status-label" id="status-label"></div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="server-status-indicator">
-                                        <span class="server-status-indicator__dot"></span>
-                                        <span class="server-status-indicator__label" id="status-label"></span>
+                                        
+                                        <div class="server-details">
+                                            <div class="detail-card">
+                                                <div class="detail-icon">
+                                                    <i class="pi pi-desktop"></i>
+                                                </div>
+                                                <div class="detail-title">Java Edition</div>
+                                                <div class="detail-value version" id="java-version">Загрузка...</div>
+                                            </div>
+                                            
+                                            <div class="detail-card">
+                                                <div class="detail-icon">
+                                                    <i class="pi pi-mobile"></i>
+                                                </div>
+                                                <div class="detail-title">Bedrock Edition</div>
+                                                <div class="detail-value version" id="bedrock-version">Загрузка...</div>
+                                            </div>
+                                            
+                                            <div class="detail-card">
+                                                <div class="detail-icon">
+                                                    <i class="pi pi-users"></i>
+                                                </div>
+                                                <div class="detail-title">Игроков онлайн</div>
+                                                <div class="detail-value" id="online-count">0</div>
+                                            </div>
+                                            
+                                            
+                                        </div>
+                                        
                                     </div>
                                 </div>
                                 
                                 <!-- Карточки -->
                                 <div class="home-grid">
-								    <!-- Как присоединиться -->
+                                    <!-- Как присоединиться -->
                                     <div class="home-card">
                                         <div class="card-icon">🎮</div>
                                         <h2 class="card-title">Как присоединиться</h2>
                                         <div class="card-content">
                                             <p>Попасть на наш сервер не просто, а очень просто. Для этого есть целых два способа: </p>
-											<p><b>Способ 1</b></p>
+                                            <p><b>Способ 1</b></p>
                                             <ul>
                                                 <li>Быть подписчиком канала "Слепой Снайпер" в Likee</li>
-												<li>Прочитать <a href="rules.html">правила</a>, они очень простые</li>
+                                                <li>Прочитать <a href="rules.html">правила</a>, они очень простые</li>
                                                 <li>Придти на стрим и принести клятву верности королевству</li>
                                             </ul>
-											<p><b>Способ 2</b></p>
-											<ul>
+                                            <p><b>Способ 2</b></p>
+                                            <ul>
                                                 <li>Попросить кого-то из опытных игроков в телеграм добавить вас на сервер.</li>
-												<li>Прочитать <a href="rules.html">правила</a>, они очень простые</li>
+                                                <li>Прочитать <a href="rules.html">правила</a>, они очень простые</li>
                                                 <li>Произнести клятву верности королевству</li>
-												<li>Опытные игроки люди добрые, и обычно быстро добавляют новичков</li>
+                                                <li>Опытные игроки люди добрые, и обычно быстро добавляют новичков</li>
                                             </ul>
                                             <p>Ждем вас у нас в мире!</p>
                                         </div>
                                         <a href="https://likee.video/@406335458" class="card-link" target="_blank">Канал в Likee</a>
                                     </div>
-								
                                     
-                                    
-                                    <!-- Правила сервера -->
-									<!--
-                                    <div class="home-card">
-                                        <div class="card-icon">📜</div>
-                                        <h2 class="card-title">Правила сервера</h2>
-                                        <div class="card-content">
-                                            <p>Чтобы поддерживать порядок в королевстве, все игроки должны соблюдать правила:</p>
-                                            <ul>
-                                                <li>Деятельность должна быть на благо королевства</li>
-                                                <li>Дома должны быть подписаны табличкой</li>
-                                                <li>Нельзя строить открытые шахты</li>
-                                                <li>Вырубленные деревья нужно сажать заново</li>
-                                                <li>ПВП только на арене</li>
-                                            </ul>
-                                            <div class="content__command">
-                                                <p>Клянусь соблюдать правила сервера, вести себя прилично, и во всем слушаться короля Кирилла.</p>
-                                            </div>
-                                        </div>
-                                        <a href="https://minecraft.zkir.ru/rules.html" class="card-link">Все правила</a>
-                                    </div>
-									-->
-									
-									<!-- Документация -->
+                                    <!-- Библиотека -->
                                     <div class="home-card">
                                         <div class="card-icon">📚</div>
                                         <h2 class="card-title">Библиотека</h2>
                                         <div class="card-content">
                                             <p>В нашей библиотеке вы найдете всю необходимую информацию:</p>
-                                            <ul class="list-style-sword">
-											    <li>Правила сервера</li>
+                                            <ul>
+                                                <li>Правила сервера</li>
                                                 <li>Руководство по модерации</li>
                                                 <li>Справочник по командам модерации</li>
                                                 <li>Чудеса нашего мира</li>
@@ -451,10 +645,7 @@
                                         <a href="https://minecraft.zkir.ru/sitemap.html" class="card-link">Открыть</a>
                                     </div>
                                     
-                                   
-                                    
                                     <!-- Поддержка сервера -->
-									
                                     <div class="home-card">
                                         <div class="card-icon">❤️</div>
                                         <h2 class="card-title">Поддержать сервер</h2>
@@ -470,9 +661,6 @@
                                         </div>
                                         <a href="https://minecraft.zkir.ru/donate.html" class="card-link">Поддержать</a>
                                     </div>
-									
-                                    
-                                    
                                     
                                     <!-- Сообщество -->
                                     <div class="home-card">
@@ -491,39 +679,46 @@
                                         </div>
                                         <a href="http://t.me/OTRYAD_GODZILLA" class="card-link" target="_blank">Telegram</a>
                                     </div>
-									
-									<!-- Карта мира -->
-									
+                                    
+                                    <!-- Карта мира -->
                                     <div class="home-card map-card">
                                         <div class="card-icon">🗺️</div>
                                         <h2 class="card-title">Карта мира</h2>
                                         <div class="card-content">
                                             <p>Хотите похвастаться своими постройками перед своими друзьями? Хотите посмотреть, что на сервере есть интересного?</p>
-											<p>У нас есть онлайн-карта, почти как гуглокарта рельного мира! Она обновляется в реальном времени и доступна для всех игроков.</p>
-											<div class="map-preview" style="margin-top: 20px; height: 300px; background: #f0f0f0; border-radius: 12px; overflow: hidden;">
-												<!-- Здесь будет iframe или изображение карты -->
-												<img src="assets/images/map-preview.jpg" alt="Превью карты" style="width: 100%; height: 100%; object-fit: cover;">
-											</div>
-											<p> </p>
+                                            <p>У нас есть онлайн-карта, почти как гуглокарта реального мира! Она обновляется в реальном времени и доступна для всех игроков.</p>
+                                            <div class="map-preview" style="margin-top: 20px; height: 300px; background: #f0f0f0; border-radius: 12px; overflow: hidden;">
+                                                <!-- Здесь будет iframe или изображение карты -->
+                                                <img src="assets/images/map-preview.jpg" alt="Превью карты" style="width: 100%; height: 100%; object-fit: cover;">
+                                            </div>
                                         </div>
-										
                                         <a href="https://minecraft.zkir.ru/map.html" class="card-link" target="_blank">Открыть карту</a>
                                     </div>
-									
                                 </div>
                                 
                                 <!-- Быстрые ссылки -->
                                 <h2>Быстрые ссылки</h2>
-                                <div style="display: flex; flex-wrap: wrap; gap: 16px; margin: 24px 0;">
-                                    <a href="https://minecraft.zkir.ru/players.html" style="padding: 8px 16px; background-color: #f0f0f0; border-radius: 12px; color: #1A1A1A; font-weight: 500; font-size: 14px;">📊 Список игроков</a>
-                                    <a href="https://minecraft.zkir.ru/bans.html" style="padding: 8px 16px; background-color: #f0f0f0; border-radius: 12px; color: #1A1A1A; font-weight: 500; font-size: 14px;">🚫 Активные баны</a>
-                                    <a href="https://minecraft.zkir.ru/medals.html" style="padding: 8px 16px; background-color: #f0f0f0; border-radius: 12px; color: #1A1A1A; font-weight: 500; font-size: 14px;">🏆 Награды сервера</a>
-                                    <a href="https://minecraft.zkir.ru/wonders.html" style="padding: 8px 16px; background-color: #f0f0f0; border-radius: 12px; color: #1A1A1A; font-weight: 500; font-size: 14px;">✨ Чудеса мира</a>
+                                <div class="quick-links">
+                                    <a href="https://minecraft.zkir.ru/players.html" class="quick-link">
+                                        <i class="pi pi-users"></i> Список игроков
+                                    </a>
+                                    <a href="https://minecraft.zkir.ru/bans.html" class="quick-link">
+                                        <i class="pi pi-ban"></i> Активные баны
+                                    </a>
+                                    <a href="https://minecraft.zkir.ru/medals.html" class="quick-link">
+                                        <i class="pi pi-star"></i> Награды сервера
+                                    </a>
+                                    <a href="https://minecraft.zkir.ru/wonders.html" class="quick-link">
+                                        <i class="pi pi-sparkles"></i> Чудеса мира
+                                    </a>
+                                    <a href="https://minecraft.zkir.ru/rules.html" class="quick-link">
+                                        <i class="pi pi-book"></i> Правила сервера
+                                    </a>
                                 </div>
                             </div>
                             
                             <div class="content__block">
-                                <div class="content__updated">Страница создана 2025-12-16 14:18:25</div>
+                                <div class="content__updated">Страница обновлена <span id="current-date"></span></div>
                             </div>
                         </div>
                     </section>
@@ -552,7 +747,7 @@
                             <div class="footer__col">
                                 <div class="footer__social">
                                     <a href="http://t.me/OTRYAD_GODZILLA" target="_blank" class="footer__social-item">
-                                        <i class="pi pi-discord"></i>
+                                        <i class="pi pi-telegram"></i>
                                     </a>
                                 </div>
                             </div>
@@ -563,45 +758,111 @@
         </div>
     </div>
 
-    <!-- JavaScript для статуса сервера (упрощенный вариант) -->
+    <!-- JavaScript для статуса сервера -->
     <script>
+        // Функция для форматирования даты
+        function formatDate(date) {
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            return `${day}.${month}.${year} ${hours}:${minutes}`;
+        }
+        
+        // Устанавливаем текущую дату в футере
+        document.getElementById('current-date').textContent = formatDate(new Date());
+        
         // Функция для проверки статуса сервера
         async function checkServerStatus() {
-            const statusElement = document.getElementById('server-status');
-            const statusDot = statusElement.querySelector('.server-status-indicator__dot');
+            const statusSection = document.getElementById('server-status-section');
+            const statusDot = document.getElementById('status-dot');
             const statusLabel = document.getElementById('status-label');
             const javaVersion = document.getElementById('java-version');
             const bedrockVersion = document.getElementById('bedrock-version');
+            const onlineCount = document.getElementById('online-count');
             
             try {
                 const response = await fetch('assets/json/server_status.json');
                 const data = await response.json();
                 
-                javaVersion.textContent = data.version;
-                bedrockVersion.textContent = data.version_bedrock;
-
+                javaVersion.textContent = data.version || '1.20.1';
+                bedrockVersion.textContent = data.version_bedrock || '1.20.1';
+                
                 if (data.online) {
-                    statusElement.className = 'server-status status-online';
-                    statusDot.className = 'server-status-indicator__dot dot-online';
-                    statusLabel.className = 'server-status-indicator__label label-online';
+                    statusSection.className = 'server-status-section status-online';
+                    statusDot.className = 'status-dot online';
+                    statusLabel.className = 'status-label online';
                     statusLabel.textContent = 'Онлайн';
+                    
+                    // Обновляем количество игроков (если есть в данных)
+                    if (data.players) {
+                        onlineCount.textContent = `${data.players.online}/${data.players.max}`;
+                    } else {
+                        onlineCount.textContent = '?/50';
+                    }
                 } else {
-                    statusElement.className = 'server-status status-offline';
-                    statusDot.className = 'server-status-indicator__dot dot-offline';
-                    statusLabel.className = 'server-status-indicator__label label-offline';
+                    statusSection.className = 'server-status-section status-offline';
+                    statusDot.className = 'status-dot offline';
+                    statusLabel.className = 'status-label offline';
                     statusLabel.textContent = 'Офлайн';
+                    onlineCount.textContent = '0/50';
                 }
             } catch (error) {
                 console.error('Ошибка проверки статуса:', error);
-                statusElement.className = 'server-status status-offline';
-                statusDot.className = 'server-status-indicator__dot dot-offline';
-                statusLabel.className = 'server-status-indicator__label label-offline';
+                statusSection.className = 'server-status-section status-offline';
+                statusDot.className = 'status-dot offline';
+                statusLabel.className = 'status-label offline';
                 statusLabel.textContent = 'Ошибка';
+                onlineCount.textContent = '0/50';
             }
         }
         
+        // Функция для копирования адреса сервера
+        function setupCopyAddress() {
+            const copyBtn = document.getElementById('copy-address-btn');
+            const copySuccess = document.getElementById('copy-success');
+            const serverAddress = 'minecraft.zkir.ru';
+            
+            copyBtn.addEventListener('click', async () => {
+                try {
+                    await navigator.clipboard.writeText(serverAddress);
+                    
+                    // Показываем сообщение об успехе
+                    copySuccess.classList.add('show');
+                    
+                    // Меняем текст кнопки на короткое время
+                    const originalText = copyBtn.innerHTML;
+                    copyBtn.innerHTML = '<i class="pi pi-check"></i> Скопировано!';
+                    
+                    setTimeout(() => {
+                        copyBtn.innerHTML = originalText;
+                        copySuccess.classList.remove('show');
+                    }, 2000);
+                } catch (err) {
+                    console.error('Ошибка копирования:', err);
+                    // Fallback для старых браузеров
+                    const textArea = document.createElement('textarea');
+                    textArea.value = serverAddress;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    
+                    // Показываем сообщение об успехе даже при fallback
+                    copySuccess.classList.add('show');
+                    setTimeout(() => {
+                        copySuccess.classList.remove('show');
+                    }, 2000);
+                }
+            });
+        }
+        
         // Проверяем статус при загрузке страницы
-        document.addEventListener('DOMContentLoaded', checkServerStatus);
+        document.addEventListener('DOMContentLoaded', () => {
+            checkServerStatus();
+            setupCopyAddress();
+        });
         
         // Проверяем каждые 30 секунд
         setInterval(checkServerStatus, 30000);
