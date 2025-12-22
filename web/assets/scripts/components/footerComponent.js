@@ -19,7 +19,7 @@ export const footerComponent = {
             </div>
             <div class="footer__col">
               <div class="footer__social">
-                <a href="https://discord.gg/wjSQsGW8rD" target="_blank" class="footer__social-item"><i class="pi pi-discord"></i></a>
+                <a href="http://t.me/OTRYAD_GODZILLA" target="_blank" class="footer__social-item footer__social-item--telegram"><img src="assets/images/icons/telegram_logo.svg" alt="Telegram" style="width: 24px; height: 24px;"></a>
               </div>
             </div>
           </div>

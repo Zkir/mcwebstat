@@ -99,7 +99,7 @@ body {
 .header__menu-item-icon {
   display: none;
 }
-.header__menu-item > .header__menu-item-icon {
+.header__menu-item.has-special-icon > .header__menu-item-icon {
   display: inline-flex;
   vertical-align: middle;
   margin-right: 2px;
@@ -305,13 +305,22 @@ body {
   width: 40px;
   height: 40px;
   color: #fff;
-  background-color: #f36413;
+  background-color: #f36413; /* This is the colored background */
   border-radius: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: all 0.5s;
 }
+
+.footer__social-item--telegram {
+  background-color: transparent;
+  width: 24px; /* Adjust width to fit icon size */
+  height: 24px; /* Adjust height to fit icon size */
+  border-radius: 0; /* Remove border-radius */
+}
+
+
 .footer__social-item:hover {
   transform: scale(0.95);
 }

@@ -8,7 +8,7 @@ export const headerComponent = {
             <nav class="header__menu">
 
               <template v-for="item in headerMenu">
-                <a :href="item.to" :target="[item.blank ? '_blank' : '']" class="header__menu-item">
+                <a :href="item.to" :target="[item.blank ? '_blank' : '']" class="header__menu-item" :class="{'has-special-icon': item.special}">
                   <span class="header__menu-item-icon">
                       <img v-if="item.icon" :src="item.icon" class="custom-icon" />
                       <svg v-else width="24px" height="24px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -65,7 +65,8 @@ export const headerComponent = {
                 to: 'http://t.me/OTRYAD_GODZILLA',
                 name: 'Телеграм',
                 blank: true,
-                icon: 'assets/images/icons/telegram_logo.svg'
+                icon: 'assets/images/icons/telegram_logo.svg',
+                special: true
             },
         ],
         onClickMobileMenu: (event) => {
