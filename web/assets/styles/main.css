@@ -229,6 +229,26 @@ body {
     top: 0;
     transform: rotate(-45deg);
   }
+
+  .header__menu {
+    gap: 8px; /* Make menu more compact */
+  }
+
+  .header__menu-item_active {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Space between icon and text */
+  }
+
+  .header__menu-item_active .header__menu-item-icon {
+    position: static; /* Remove absolute positioning */
+    display: inline-flex; /* Make it visible */
+    background-image: none; /* Remove the top arrow background */
+    width: auto;
+    height: auto;
+    top: auto;
+    left: auto;
+  }
 }
 .footer {
   margin-top: 32px;
