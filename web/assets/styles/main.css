@@ -94,10 +94,21 @@ body {
   border-radius: 12px;
   transition: transform 0.5s ease-in-out;
   position: relative;
+  white-space: nowrap;
 }
 .header__menu-item-icon {
   display: none;
 }
+.header__menu-item > .header__menu-item-icon {
+  display: inline-flex;
+  vertical-align: middle;
+  margin-right: 2px;
+}
+.custom-icon {
+  width: 20px;
+  height: 20px;
+}
+
 .header__menu-item:hover {
   transform: translateY(-4px);
 }
@@ -238,6 +249,7 @@ body {
     display: flex;
     align-items: center;
     gap: 8px; /* Space between icon and text */
+    white-space: nowrap;
   }
 
   .header__menu-item_active .header__menu-item-icon {
