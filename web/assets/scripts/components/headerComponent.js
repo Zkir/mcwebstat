@@ -10,8 +10,8 @@ export const headerComponent = {
               <template v-for="item in headerMenu">
                 <a :href="item.to" :target="[item.blank ? '_blank' : '']" class="header__menu-item">
                   <span class="header__menu-item-icon">
-                      <svg width="24px" height="24px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-
+                      <img v-if="item.icon" :src="item.icon" class="custom-icon" />
+                      <svg v-else width="24px" height="24px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                           <g id="Dribbble-Light-Preview" transform="translate(-420.000000, -6319.000000)" fill="currentColor">
                             <g id="icons" transform="translate(56.000000, 160.000000)">
@@ -33,7 +33,12 @@ export const headerComponent = {
         headerMenu: [
             {
                 to: '/',
-                name: 'Карта мира',
+                name: 'Главная',
+                blank: false
+            },
+            {
+                to: '/wonders.html',
+                name: 'Чудеса',
                 blank: false
             },
             {
@@ -53,18 +58,14 @@ export const headerComponent = {
             },
 			{
                 to: '/sitemap.html',
-                name: 'Документы',
-                blank: false
-            },
-				{
-                to: '/donate.html',
-                name: 'Поддержать нас',
+                name: 'Библиотека',
                 blank: false
             },
             {
-                to: 'https://discord.gg/wjSQsGW8rD',
-                name: 'Дискорд',
-                blank: true
+                to: 'http://t.me/OTRYAD_GODZILLA',
+                name: 'Телеграм',
+                blank: true,
+                icon: 'assets/images/icons/telegram_logo.svg'
             },
         ],
         onClickMobileMenu: (event) => {
