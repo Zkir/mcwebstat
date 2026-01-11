@@ -30,7 +30,7 @@ PERMISSIONS_FILE = MINECRAFT_DIR + "/plugins/PermissionsEx/permissions.yml"
 DS_LINKS_FILE = MINECRAFT_DIR + "/plugins/DiscordSRV/accounts.aof" 
 NLOGIN_DB_FILE = MINECRAFT_DIR+ '/plugins/nLogin/nlogin.db'
 
-ranks={'admins4':6, 'admins3a':5, 'admins3':4,'admins2':3,'admins':2,'police':1, 'default':0}
+ranks={'admins5':6, 'admins4':4, 'admins3':3, 'admins2':2, 'admins1':1, 'default':0}
 
 def sort_users_by_rank(user):
     if user['whitelisted']:
